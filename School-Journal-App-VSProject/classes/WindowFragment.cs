@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace classes
 {
-    class WindowFragment : Page
+    // usage: add an object of this class to a page(window) class, 
+    //        then with the "addFrameBlock" function add each frame and a block for it.
+    //        Use "loadBlocks" to load all added blocks in the page
+    class WindowFragment 
     {
 
         private List<Tuple<Frame, Page>> framesAndBlocks;
