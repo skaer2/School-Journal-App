@@ -9,7 +9,7 @@
       Title="LoginPage" Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="640" MinHeight="480">
 
     <Grid>
-        <Frame Width="365" Height="250" HorizontalAlignment="Center" VerticalAlignment="Center" NavigationUIVisibility="Hidden"></Frame>
-        <Frame Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,70,0,0" Width="290" NavigationUIVisibility="Hidden" />
+        <Frame Name="AuthBlock" Width="365" Height="250" HorizontalAlignment="Center" VerticalAlignment="Center" NavigationUIVisibility="Hidden"></Frame>
+        <Label Name="TextTitle" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,70,0,0" Width="290" HorizontalContentAlignment="Center"/>
     </Grid>
 </Page>

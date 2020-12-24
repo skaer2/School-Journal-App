@@ -5,26 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace classes
+namespace interfaces
 {
     // usage: add an object of this class to a page(window) class, 
     //        then with the "addFrameBlock" function add each frame and a block for it.
     //        Use "loadBlocks" to load all added blocks in the page
-    class WindowFragment 
+    public static class WindowFragment 
     {
-
-        private List<Tuple<Frame, Page>> framesAndBlocks;
-
-        public WindowFragment()
-        {
-            framesAndBlocks = new List<Tuple<Frame, Page>>();
-        }
-        public void addFrameBlock(Frame frame, Page block)
-        {
-            framesAndBlocks.Add(Tuple.Create<Frame, Page>(frame, block));
-        }
-
-        public void loadBlocks()
+        public static void loadBlocks(this Page page, List<Tuple<Frame, Page>> framesAndBlocks)
         {
             foreach (var frAndBl in framesAndBlocks)
             {
@@ -32,7 +20,7 @@ namespace classes
             }
         }
 
-        private void loadBlock(Frame frame, Page block)
+        private static void loadBlock(Frame frame, Page block)
         {
             frame.Navigate(block);
         }

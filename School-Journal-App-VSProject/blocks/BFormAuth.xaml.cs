@@ -12,28 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using School_Journal_App_VSProject.models;
 using School_Journal_App_VSProject.pages;
 
-namespace School_Journal_App_VSProject
+namespace School_Journal_App_VSProject.blocks
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для BFormAuth.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BFormAuth : Page
     {
-        public MainWindow()
+        public BFormAuth()
         {
             InitializeComponent();
-
-            WindowRouter.router.setFrame(MainFrame);
-
-            WindowRouter.router.openPage(new LoginPage()) ;
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            WindowRouter.router.openPage(new JournalPage());
         }
     }
 }

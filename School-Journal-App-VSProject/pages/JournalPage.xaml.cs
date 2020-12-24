@@ -19,27 +19,31 @@ using School_Journal_App_VSProject.blocks;
 namespace School_Journal_App_VSProject.pages
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Логика взаимодействия для JournalPage.xaml
     /// </summary>
-    public partial class LoginPage : Page, IWindowFragment
+    public partial class JournalPage : Page, IWindowFragment
     {
         public List<Tuple<Frame, Page>> framesAndBlocks { get; set; }
 
-        public LoginPage()
+        public JournalPage()
         {
             InitializeComponent();
 
             framesAndBlocks = new List<Tuple<Frame, Page>>();
             addBlocks();
 
-            TextTitle.Content = App.appTitle;
-
             this.loadBlocks(framesAndBlocks);
         }
 
         public void addBlocks()
         {
-            framesAndBlocks.Add(new Tuple<Frame, Page>(AuthBlock, new BFormAuth()));
+            var pageSubject = new BSubjectsList();
+            var journal = new BJournal();
+            pageSubject.setOnClickListener((text) => {
+                journal.setText(text);
+            });
+            framesAndBlocks.Add(new Tuple<Frame, Page>(SubjectsBlock, pageSubject));
+            framesAndBlocks.Add(new Tuple<Frame, Page>(JournalBlock, journal));
         }
     }
 }

@@ -55,6 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="blocks\BFormAuth.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="blocks\BJournal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="blocks\BSubjectsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,10 +75,24 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blocks\BFormAuth.xaml.cs">
+      <DependentUpon>BFormAuth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="blocks\BJournal.xaml.cs">
+      <DependentUpon>BJournal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="blocks\BSubjectsList.xaml.cs">
+      <DependentUpon>BSubjectsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="interfaces\IWindowFragment.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="pages\JournalPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,6 +100,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="classes\WindowFragment.cs" />
+    <Compile Include="models\WindowRouter.cs" />
+    <Compile Include="pages\JournalPage.xaml.cs">
+      <DependentUpon>JournalPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

@@ -13,5 +13,6 @@ namespace School_Journal_App_VSProject
     /// </summary>
     public partial class App : Application
     {
+        public static string appTitle = "Электронный журнал";
     }
 }
