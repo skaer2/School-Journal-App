@@ -9,6 +9,7 @@
       Title="Auth" Background="Red">
 
     <Grid>
-        <Frame Background="White" Name="ProfileBlock" HorizontalAlignment="Left" Height="100" Margin="300,165,0,0" VerticalAlignment="Top" Width="200" NavigationUIVisibility="Hidden"/>
+        <Frame Name="profileBlock" Background="White" HorizontalAlignment="Left" Height="100" Margin="300,165,0,0" VerticalAlignment="Top" Width="200" NavigationUIVisibility="Hidden"/>
+        <Frame Name="block2" Background="White" Content="Frame" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="95,165,0,0"/>
     </Grid>
 </Page>

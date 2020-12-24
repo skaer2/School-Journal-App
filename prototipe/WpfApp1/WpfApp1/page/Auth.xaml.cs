@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using classes;
+
 namespace WpfApp1.page
 {
     /// <summary>
@@ -20,11 +22,18 @@ namespace WpfApp1.page
     /// </summary>
     public partial class Auth : Page
     {
+        private WindowFragment wf;
+
         public Auth()
         {
             InitializeComponent();
 
-            ProfileBlock.Navigate(new blocks.Page1());
+            wf = new WindowFragment();
+
+            wf.addFrameBlock(profileBlock, new blocks.Page1());
+            wf.loadBlocks();
         }
+
+        
     }
 }
