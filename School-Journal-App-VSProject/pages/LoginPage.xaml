@@ -1,0 +1,15 @@
+﻿<Page x:Class="School_Journal_App_VSProject.pages.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:School_Journal_App_VSProject.pages"
+      mc:Ignorable="d" 
+      
+      Title="LoginPage" Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="640" MinHeight="480">
+
+    <Grid>
+        <Frame Name="AuthBlock" Width="365" Height="250" HorizontalAlignment="Center" VerticalAlignment="Center" NavigationUIVisibility="Hidden"></Frame>
+        <Label Name="TextTitle" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,70,0,0" Width="290" HorizontalContentAlignment="Center"/>
+    </Grid>
+</Page>
