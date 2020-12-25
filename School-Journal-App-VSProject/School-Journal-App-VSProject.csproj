@@ -85,6 +85,7 @@
     <Compile Include="blocks\BSubjectsList.xaml.cs">
       <DependentUpon>BSubjectsList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="classes\User.cs" />
     <Compile Include="interfaces\IWindowFragment.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
