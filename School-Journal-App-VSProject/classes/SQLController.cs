@@ -8,7 +8,7 @@ using System.Data;
 using System.Windows;
 using System.Data.SqlClient;
 
-namespace Demo.classes
+namespace connector
 {
     class SQLController
     {
@@ -32,7 +32,7 @@ namespace Demo.classes
             {
                 if (con.State == ConnectionState.Closed)
                 {
-                    con.ConnectionString = "";
+                    con.ConnectionString = "Data Source=SKAER2-ПК\\SQLEXPRESS;Initial Catalog=School-Journal-App-DB;Integrated Security=True";
                     con.Open();
                 }
             }
@@ -80,7 +80,7 @@ namespace Demo.classes
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message.ToString(), "WPF C# SQL Test", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine("error: " + e.Message.ToString() + "\n");
                 return "error";
             }
 

@@ -56,6 +56,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="classes\SQLController.cs" />
+    <Compile Include="_School_Journal_App_DBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_School_Journal_App_DBDataSet.xsd</DependentUpon>
+    </Compile>
     <Page Include="blocks\BFormAuth.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +133,17 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="_School_Journal_App_DBDataSet.xsc">
+      <DependentUpon>_School_Journal_App_DBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="_School_Journal_App_DBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>_School_Journal_App_DBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_School_Journal_App_DBDataSet.xss">
+      <DependentUpon>_School_Journal_App_DBDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
