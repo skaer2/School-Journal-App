@@ -21,8 +21,9 @@
             <RowDefinition Height="37*" />
             <RowDefinition Height="43*" />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Padding="2" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Padding="2" VerticalContentAlignment="Center" />
+        <TextBox Name="Login" Grid.Row="1" Grid.Column="1" Margin="5" Padding="2" VerticalContentAlignment="Center"/>
+        <TextBox Name="Password" Grid.Row="2" Grid.Column="1" Margin="5" Padding="2" VerticalContentAlignment="Center" />
         <Button Name="LoginButton" Grid.Row="4" Grid.Column="1" Margin="20,5" Content="Войти" Click="LoginButton_Click" />
+        <Label Name="Error" Content="Неверные данные входа" Visibility="Hidden" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red"/>
     </Grid>
 </Page>

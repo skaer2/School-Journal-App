@@ -8,26 +8,54 @@ namespace classes
 {
     public class User
     {
-        public User(string login){
-            this.login = login;
-            this.Photo = System.AppDomain.CurrentDomain.BaseDirectory + "icons\\defaultProfile.jpg";
-            //get all the info from the DB
+        public User() { }
+        public User(string _login, string _password, Tuple<string, string, string> _name, int _groupId, string _email, int _role){
+            login = _login;
+            name = _name;
+            groupId = _groupId;
+            email = _email;
+            role = _role;
+            Password = _password;
         }
 
-        public int Role { get; set; }
+        public readonly int role;
 
-        private string login;
+        public readonly string login;
 
-        public string GetLogin()
+        public readonly string email;
+
+        public readonly string photo;
+
+        public readonly int groupId;
+
+        public readonly DateTime birthday;
+
+        public readonly Tuple<string, string, string> name;
+
+        private string password;
+        public string Password 
         {
-            return login;
+            set 
+            {
+                if (password == null)
+                {
+                    password = value;
+                }
+                else 
+                {
+                    password = value;
+                    // add BD change
+                }
+            }
         }
 
-        public string Email { get; set; }
-        public string Photo { get; set; }
-        public int GroupId { get; set; }
-        public DateTime Birthday { get; set; }
-        public Tuple<string, string, string> Name { get; set; }
-        public string Password { get; set; }
+        public bool CheckPassword(string chechPassword) 
+        {
+            if (chechPassword == password)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using classes;
+using School_Journal_App_VSProject.classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +22,11 @@ namespace School_Journal_App_VSProject.blocks
     /// </summary>
     public partial class BSubjectsList : Page
     {
-        public delegate void DelegateClick(string text);
-        private DelegateClick _delegate;
+        public delegate void DelegateSelect(string subject);
+        private DelegateSelect _delegate;
+
+        List<Subject> listSubjects;
+        int prevGroup = -1;
 
         public BSubjectsList()
         {
@@ -29,14 +34,31 @@ namespace School_Journal_App_VSProject.blocks
 
         }
 
-        public void setOnClickListener(DelegateClick rDelegate) 
+        public void Reload(int groupId) 
         {
-            _delegate = rDelegate;
+            if (groupId != prevGroup) {
+                prevGroup = groupId;
+                SubjectList.Items.Clear();
+                listSubjects = SQLController.controller.getSubjectsForGroups(groupId);
+
+                foreach (var item in listSubjects) {
+                    SubjectList.Items.Add(item.Title);
+                }
+
+                SubjectList.SelectedIndex = 0;
+                _delegate?.Invoke(listSubjects[0].Title);
+            }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void setOnSelectedListener(DelegateSelect rDelegate) 
         {
-           _delegate?.Invoke((string)(sender as Button).Content);
+            _delegate = rDelegate;
+            _delegate?.Invoke(listSubjects[0].Title);
+        }
+
+        private void SubjectList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _delegate?.Invoke((string)(sender as ListView).SelectedItem);
         }
     }
 }

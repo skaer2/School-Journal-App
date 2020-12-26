@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 using interfaces;
 using School_Journal_App_VSProject.blocks;
+using School_Journal_App_VSProject.classes;
 
 namespace School_Journal_App_VSProject.pages
 {
@@ -33,15 +34,31 @@ namespace School_Journal_App_VSProject.pages
             addBlocks();
 
             this.loadBlocks(framesAndBlocks);
+
+            if (App.CurrentUser.role == 2) {
+                Groups.Height = new GridLength(0, GridUnitType.Auto);
+                List.Height = new GridLength(6, GridUnitType.Star);
+            }
+            
         }
 
         public void addBlocks()
         {
+            framesAndBlocks.Add(new Tuple<Frame, Page>(ProfileBlock, new ProfileCard()));
+
+            var groups = new BGroupsList();
             var pageSubject = new BSubjectsList();
             var journal = new BJournal();
-            pageSubject.setOnClickListener((text) => {
-                journal.setText(text);
+
+            groups.SetOnSelectedListener((group) => {
+                pageSubject.Reload(group);
             });
+            
+            pageSubject.setOnSelectedListener((subject) => {
+                journal.setText(subject);
+            });
+
+            framesAndBlocks.Add(new Tuple<Frame, Page>(GroupsBlock, groups));
             framesAndBlocks.Add(new Tuple<Frame, Page>(SubjectsBlock, pageSubject));
             framesAndBlocks.Add(new Tuple<Frame, Page>(JournalBlock, journal));
         }
