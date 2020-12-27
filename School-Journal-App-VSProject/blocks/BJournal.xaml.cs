@@ -68,5 +68,10 @@ namespace School_Journal_App_VSProject.blocks
 
             return row;
         }
+
+        private void JournalList_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+
+        }
     }
 }

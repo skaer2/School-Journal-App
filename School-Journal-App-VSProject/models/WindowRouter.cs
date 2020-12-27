@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
+using School_Journal_App_VSProject.pages;
+
 namespace School_Journal_App_VSProject.models
 {
     class WindowRouter
@@ -20,6 +22,13 @@ namespace School_Journal_App_VSProject.models
         public void openPage(Page page) 
         {
             mainFrame.Navigate(page);
+        }
+
+        public void openAdminPanel()
+        {
+            AdminPanelClass adminpanel = new AdminPanelClass();
+
+            adminpanel.Show();
         }
     }
 }
