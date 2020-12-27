@@ -16,6 +16,7 @@ using classes;
 using School_Journal_App_VSProject.classes;
 using School_Journal_App_VSProject.models;
 using School_Journal_App_VSProject.pages;
+using connector;
 
 namespace School_Journal_App_VSProject.blocks
 {
@@ -24,9 +25,13 @@ namespace School_Journal_App_VSProject.blocks
     /// </summary>
     public partial class BFormAuth : Page
     {
+        private SQLController controller;
+
         public BFormAuth()
         {
             InitializeComponent();
+
+            controller = new SQLController();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

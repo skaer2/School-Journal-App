@@ -5,10 +5,10 @@
     <Setting Name="School_Journal_App_DBConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=DESKTOP-5LEEG3R;Initial Catalog=School-Journal-App-DB;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=SKAER2-ПК\SQLEXPRESS;Initial Catalog=School-Journal-App-DB;Integrated Security=True&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=DESKTOP-5LEEG3R;Initial Catalog=School-Journal-App-DB;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=SKAER2-ПК\SQLEXPRESS;Initial Catalog=School-Journal-App-DB;Integrated Security=True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
