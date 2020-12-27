@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Windows;
 using System.Data.SqlClient;
+using System.Configuration;
+using classes;
+using School_Journal_App_VSProject.classes;
 
-namespace connector
+namespace School_Journal_App_VSProject.classes
 {
     class SQLController
     {
+        public static SQLController controller = new SQLController();
         public static string sql;
         public static SqlConnection con;
         public static SqlCommand cmd;
@@ -25,9 +29,8 @@ namespace connector
             cmd = new SqlCommand("", con);
         }
 
-        public static void open() 
+        public void Open() 
         {
-
             try
             {
                 if (con.State == ConnectionState.Closed)
@@ -36,16 +39,13 @@ namespace connector
                     con.Open();
                 }
             }
-            catch (Exception e) 
+            catch
             {
-                MessageBox.Show(e.Message.ToString(), "WPF C# SQL Test", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
-        public static void close()
+        public void Close()
         {
-
             try
             {
                 if (con.State == ConnectionState.Open)
@@ -53,38 +53,150 @@ namespace connector
                     con.Close();
                 }
             }
-            catch (Exception e)
+            catch
             {
-                MessageBox.Show(e.Message.ToString(), "WPF C# SQL Test", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
-        public static string getName(string login)
+        public SqlDataReader Select(string from, List<string> what = null, Dictionary<string, object> where = null) 
         {
-            try
-            {
-                cmd.CommandText = "SELECT first_name, last_name FROM users WHERE login = @login";
-                cmd.Parameters.AddWithValue("@login", login);
+            if (con.State == ConnectionState.Closed) Open();
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
+            string SQLWhat = "*";
+            if (what != null && what.Count > 0) 
+            {
+                SQLWhat = string.Join(", ", what);
+            }
+            string SQLWhere = "";
+            List<string> whereList = new List<string>();
+            if (where != null)
+            {
+                SQLWhere = " WHERE ";
+                foreach (var item in where)
                 {
-                    if (reader.Read())
+                    string value = "";
+
+                    if (item.Value == null) 
                     {
-                        Console.WriteLine(reader["first_name"] + " " + reader["last_name"] + "\n");
+                        value = "NULL";
                     }
+
+                    if (item.Value is int)
+                    {
+                        value = ""+item.Value;
+                    }
+
+                    if (item.Value is string)
+                    {
+                        value = "'" + item.Value + "'";
+                    }
+
+                    whereList.Add(item.Key + " = " + value);
                 }
-
-                return "";
-
+                if (whereList.Count > 0)
+                    SQLWhere += string.Join(", ", whereList);
             }
-            catch (Exception e)
+
+            sql = "SELECT " + SQLWhat + " FROM " + from + " " + SQLWhere;
+
+            cmd = new SqlCommand(sql, con);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            return reader;
+        }
+
+        public User GetUser(string login)
+        {
+            User user = new User();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object> 
+            { 
+                [Database.Users.LOGIN] = login
+            });
+
+            if (reader.Read())
             {
-                Console.WriteLine("error: " + e.Message.ToString() + "\n");
-                return "error";
+                string middleName = "";
+                int group = 0;
+
+                try
+                {
+                    middleName = reader.GetString(2);
+                }
+                catch { }
+                try
+                {
+                    group = reader.GetInt32(4);
+                }
+                catch { }
+
+                user = new User(
+                    reader.GetString(7),
+                    reader.GetString(8),
+                    new Tuple<string, string, string>(reader.GetString(0), reader.GetString(1), middleName),
+                    group,
+                    reader.GetString(6),
+                    reader.GetInt32(9)
+                );
             }
 
+            Close();
 
+            return user;
+        }
+
+        public List<Group> getGroups() 
+        {
+            List<Group> groups = new List<Group>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Groups.TABLE_NAME);
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    groups.Add(new Group(
+                        reader.GetInt32(0),
+                        reader.GetString(1)
+                    ));
+                }
+            }
+
+            Close();
+
+            return groups;
+        }
+
+        public List<Subject> getSubjectsForGroups(int groupId)
+        {
+            List<Subject> groups = new List<Subject>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Subjects.TABLE_NAME, null, new Dictionary<string, object> {
+                [Database.Subjects.GROUP_ID] = groupId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    groups.Add(new Subject(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetInt32(2),
+                        reader.GetInt32(3)
+                    ));
+                }
+            }
+
+            Close();
+
+            return groups;
         }
 
     }

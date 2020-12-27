@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using classes;
 
 namespace School_Journal_App_VSProject
 {
@@ -13,6 +14,8 @@ namespace School_Journal_App_VSProject
     /// </summary>
     public partial class App : Application
     {
+        public static User CurrentUser = null;
         public static string appTitle = "Электронный журнал";
+
     }
 }

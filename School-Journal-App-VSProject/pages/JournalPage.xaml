@@ -17,11 +17,11 @@
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="3*" />
+                <RowDefinition Height="3*" Name="Groups" />
+                <RowDefinition Height="3*" Name="List"/>
             </Grid.RowDefinitions>
 
-            <Frame Name="ProfileBlock" Grid.Row="0" NavigationUIVisibility="Hidden" />
+            <Frame Name="ProfileBlock" Grid.Row="0" NavigationUIVisibility="Hidden" Margin="5" />
             <Frame Name="GroupsBlock" Grid.Row="1" NavigationUIVisibility="Hidden" />
             <Frame Name="SubjectsBlock" Grid.Row="2" NavigationUIVisibility="Hidden" />
         </Grid>

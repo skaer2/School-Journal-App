@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using classes;
+using School_Journal_App_VSProject.classes;
 using School_Journal_App_VSProject.models;
 using School_Journal_App_VSProject.pages;
 using connector;
@@ -35,10 +36,19 @@ namespace School_Journal_App_VSProject.blocks
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            SQLController.open();
-            SQLController.getName(loginTxtBx.Text);
-            SQLController.close();
-            WindowRouter.router.openPage(new JournalPage());
+            if (Login.Text.Length > 0 && Password.Text.Length > 0)
+            {
+                User user = SQLController.controller.GetUser(Login.Text);
+                if (user.CheckPassword(Password.Text))
+                {
+                    App.CurrentUser = user;
+                    WindowRouter.router.openPage(new JournalPage());
+                }
+                else
+                {
+                    Error.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

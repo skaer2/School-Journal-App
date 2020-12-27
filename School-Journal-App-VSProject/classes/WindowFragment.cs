@@ -25,5 +25,5 @@ namespace interfaces
             frame.Navigate(block);
         }
 
-        }
+    }
 }
