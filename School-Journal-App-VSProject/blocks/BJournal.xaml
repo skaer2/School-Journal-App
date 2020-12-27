@@ -15,6 +15,6 @@
         </Grid.RowDefinitions>
 
         <Label Name="Text" Grid.Row="0" Grid.Column="0" Content="Hello" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
-        <DataGrid Grid.Row="1" Name="JournalList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <DataGrid Name="JournalList" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RowEditEnding="JournalList_RowEditEnding"/>
     </Grid>
 </Page>

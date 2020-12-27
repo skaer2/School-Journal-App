@@ -30,6 +30,22 @@ namespace School_Journal_App_VSProject.blocks
         {
             InitializeComponent();
 
+            //DELETE THIS
+            //DELETE THIS
+            //DELETE THIS
+            //DELETE THIS
+            //DELETE THIS
+            //DELETE THIS
+            Login.Text = "admin";
+            Password.Password = "admin";
+            //DELETE THIS
+            //DELETE THIS
+            //DELETE THIS
+            //DELETE THIS
+            //DELETE THIS
+            //DELETE THIS
+
+
             controller = new SQLController();
         }
 
