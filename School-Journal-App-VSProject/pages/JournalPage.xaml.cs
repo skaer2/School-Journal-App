@@ -44,7 +44,7 @@ namespace School_Journal_App_VSProject.pages
 
         public void addBlocks()
         {
-            framesAndBlocks.Add(new Tuple<Frame, Page>(ProfileBlock, new ProfileCard()));
+            framesAndBlocks.Add(new Tuple<Frame, Page>(ProfileBlock, new BProfileCard()));
 
             var groups = new BGroupsList();
             var pageSubject = new BSubjectsList();

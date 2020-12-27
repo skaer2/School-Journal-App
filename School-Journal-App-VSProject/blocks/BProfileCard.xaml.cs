@@ -18,9 +18,9 @@ namespace School_Journal_App_VSProject.blocks
     /// <summary>
     /// Логика взаимодействия для ProfileCard.xaml
     /// </summary>
-    public partial class ProfileCard : Page
+    public partial class BProfileCard : Page
     {
-        public ProfileCard()
+        public BProfileCard()
         {
             InitializeComponent();
 

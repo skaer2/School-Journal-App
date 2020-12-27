@@ -67,8 +67,8 @@
     <Compile Include="blocks\BGroupsList.xaml.cs">
       <DependentUpon>BGroupsList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="blocks\ProfileCard.xaml.cs">
-      <DependentUpon>ProfileCard.xaml</DependentUpon>
+    <Compile Include="blocks\BProfileCard.xaml.cs">
+      <DependentUpon>BProfileCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="classes\CacheController.cs" />
     <Compile Include="classes\CryptographyController.cs" />
@@ -102,7 +102,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="blocks\ProfileCard.xaml">
+    <Page Include="blocks\BProfileCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
