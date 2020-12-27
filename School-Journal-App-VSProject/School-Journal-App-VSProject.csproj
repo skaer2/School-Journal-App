@@ -74,8 +74,10 @@
     <Compile Include="classes\CryptographyController.cs" />
     <Compile Include="classes\Database.cs" />
     <Compile Include="classes\Group.cs" />
+    <Compile Include="classes\Mark.cs" />
     <Compile Include="classes\SQLController.cs" />
     <Compile Include="classes\Subject.cs" />
+    <Compile Include="classes\SubjectItem.cs" />
     <Compile Include="_School_Journal_App_DBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -197,6 +199,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\defaultProfile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

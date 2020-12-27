@@ -17,6 +17,7 @@ namespace classes
         private readonly int groupId;
         public int GroupId { get { return groupId; } }
 
+        public Subject() { }
         public Subject(int _id, string _title, int _teacherId, int _groupId)
         {
             id = _id;

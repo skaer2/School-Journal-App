@@ -22,11 +22,12 @@ namespace School_Journal_App_VSProject.blocks
     /// </summary>
     public partial class BSubjectsList : Page
     {
-        public delegate void DelegateSelect(string subject);
+        public delegate void DelegateSelect(Subject subject, int groupId);
         private DelegateSelect _delegate;
 
         List<Subject> listSubjects;
         int prevGroup = -1;
+        private int currentGroupId = 0;
 
         public BSubjectsList()
         {
@@ -36,29 +37,37 @@ namespace School_Journal_App_VSProject.blocks
 
         public void Reload(int groupId) 
         {
-            if (groupId != prevGroup) {
+            currentGroupId = groupId;
+            if (App.CurrentUser.groupId != 0) currentGroupId = App.CurrentUser.groupId;
+            if (currentGroupId != prevGroup) {
                 prevGroup = groupId;
                 SubjectList.Items.Clear();
-                listSubjects = SQLController.controller.getSubjectsForGroups(groupId);
+                listSubjects = SQLController.controller.getSubjectsForGroups(currentGroupId);
 
-                foreach (var item in listSubjects) {
-                    SubjectList.Items.Add(item.Title);
+                foreach (var item in listSubjects)
+                {
+                    SubjectList.Items.Add(item);
                 }
 
                 SubjectList.SelectedIndex = 0;
-                _delegate?.Invoke(listSubjects[0].Title);
+                _delegate?.Invoke(listSubjects[0], currentGroupId);
             }
         }
 
         public void setOnSelectedListener(DelegateSelect rDelegate) 
         {
             _delegate = rDelegate;
-            _delegate?.Invoke(listSubjects[0].Title);
+            _delegate?.Invoke(listSubjects[0], currentGroupId);
         }
 
         private void SubjectList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _delegate?.Invoke((string)(sender as ListView).SelectedItem);
+            _delegate?.Invoke(listSubjects[(sender as ListView).SelectedIndex], currentGroupId);
+        }
+
+        private void AddItem_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine((sender as Button).Tag);
         }
     }
 }

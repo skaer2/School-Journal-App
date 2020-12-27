@@ -24,8 +24,6 @@ namespace School_Journal_App_VSProject.blocks
     /// </summary>
     public partial class BFormAuth : Page
     {
-        private SQLController controller;
-
         public BFormAuth()
         {
             InitializeComponent();
@@ -44,9 +42,6 @@ namespace School_Journal_App_VSProject.blocks
             //DELETE THIS
             //DELETE THIS
             //DELETE THIS
-
-
-            controller = new SQLController();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

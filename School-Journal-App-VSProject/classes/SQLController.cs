@@ -16,26 +16,26 @@ namespace School_Journal_App_VSProject.classes
     class SQLController
     {
         public static SQLController controller = new SQLController();
-        public static string sql;
-        public static SqlConnection con;
-        public static SqlCommand cmd;
-        public static SqlDataReader rd;
-        public static DataTable dt;
-        public static SqlDataAdapter da;
+        private static string sql;
+        private static SqlConnection con;
+        private static SqlCommand cmd;
+        private static SqlDataReader rd;
+        private static DataTable dt;
+        private static SqlDataAdapter da;
 
-        public SQLController()
+        SQLController()
         {
             con = new SqlConnection();
             cmd = new SqlCommand("", con);
         }
 
-        public void Open() 
+        private void Open() 
         {
             try
             {
                 if (con.State == ConnectionState.Closed)
                 {
-                    con.ConnectionString = "Data Source=SKAER2-ПК\\SQLEXPRESS;Initial Catalog=School-Journal-App-DB;Integrated Security=True";
+                    con.ConnectionString = "Data Source=DESKTOP-5LEEG3R;Initial Catalog=School-Journal-App-DB;Integrated Security=True";
                     con.Open();
                 }
             }
@@ -44,7 +44,7 @@ namespace School_Journal_App_VSProject.classes
             }
         }
 
-        public void Close()
+        private void Close()
         {
             try
             {
@@ -58,9 +58,9 @@ namespace School_Journal_App_VSProject.classes
             }
         }
 
-        public SqlDataReader Select(string from, List<string> what = null, Dictionary<string, object> where = null) 
+        private SqlDataReader Select(string from, List<string> what = null, Dictionary<string, object> where = null) 
         {
-            if (con.State == ConnectionState.Closed) Open();
+            Open();
 
             string SQLWhat = "*";
             if (what != null && what.Count > 0) 
@@ -83,7 +83,7 @@ namespace School_Journal_App_VSProject.classes
 
                     if (item.Value is int)
                     {
-                        value = ""+item.Value;
+                        value = "" + item.Value;
                     }
 
                     if (item.Value is string)
@@ -94,15 +94,107 @@ namespace School_Journal_App_VSProject.classes
                     whereList.Add(item.Key + " = " + value);
                 }
                 if (whereList.Count > 0)
-                    SQLWhere += string.Join(", ", whereList);
+                    SQLWhere += string.Join(" AND ", whereList);
             }
 
-            sql = "SELECT " + SQLWhat + " FROM " + from + " " + SQLWhere;
-
+            sql = "SELECT " + SQLWhat + " FROM " + from + SQLWhere;
+            Console.WriteLine(sql);
             cmd = new SqlCommand(sql, con);
             SqlDataReader reader = cmd.ExecuteReader();
 
             return reader;
+        }
+
+        public void Insert(string table, List<string> to = null, List<object> value = null) 
+        {
+            Open();
+
+            string SQLWhat = "";
+            string SQLValue = "";
+            if (to != null && to.Count > 0)
+            {
+                SQLWhat = " (";
+                SQLWhat += string.Join(", ", to);
+                SQLWhat += ")";
+            }
+
+            if (value != null && value.Count > 0)
+            {
+                SQLValue = "(";
+                List<string> whereList = new List<string>();
+
+                foreach (var item in value)
+                {
+                    string str = "";
+                    if (item == null)
+                    {
+                        str = "NULL";
+                    }
+
+                    if (item is int)
+                    {
+                        str = "" + item;
+                    }
+
+                    if (item is string)
+                    {
+                        str = "'" + item + "'";
+                    }
+
+                    whereList.Add(str);
+                }
+                SQLValue += string.Join(", ", whereList);
+                SQLValue += ")";
+            }
+
+            sql = "INSERT INTO " + table + " " + SQLWhat + "VALUES " + SQLValue;
+            Console.WriteLine(sql);
+            cmd = new SqlCommand(sql, con);
+            cmd.ExecuteNonQuery();
+
+            Close();
+        }
+
+        public void Delete(string table, Dictionary<string, object> where = null)
+        {
+            Open();
+
+            string SQLWhere = "";
+            List<string> whereList = new List<string>();
+            if (where != null)
+            {
+                SQLWhere = " WHERE ";
+                foreach (var item in where)
+                {
+                    string value = "";
+
+                    if (item.Value == null) 
+                    {
+                        value = "NULL";
+                    }
+
+                    if (item.Value is int)
+                    {
+                        value = "" + item.Value;
+                    }
+
+                    if (item.Value is string)
+                    {
+                        value = "'" + item.Value + "'";
+                    }
+
+                    whereList.Add(item.Key + " = " + value);
+                }
+                if (whereList.Count > 0)
+                    SQLWhere += string.Join(" AND ", whereList);
+            }
+
+            sql = "DELETE FROM " + table + SQLWhere;
+            Console.WriteLine(sql);
+            cmd = new SqlCommand(sql, con);
+            cmd.ExecuteNonQuery();
+
+            Close();
         }
 
         public User GetUser(string login)
@@ -147,13 +239,66 @@ namespace School_Journal_App_VSProject.classes
             return user;
         }
 
-        public List<Group> getGroups() 
+        public List<User> getUsersForGroup(int groupId) {
+            List<User> users = new List<User>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object> {
+                [Database.Users.GROUP_ID]=  groupId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    string middleName = "";
+                    int group = 0;
+
+                    try
+                    {
+                        middleName = reader.GetString(2);
+                    }
+                    catch { }
+                    try
+                    {
+                        group = reader.GetInt32(4);
+                    }
+                    catch { }
+
+                    users.Add(new User(
+                        reader.GetString(7),
+                        reader.GetString(8),
+                        new Tuple<string, string, string>(reader.GetString(0), reader.GetString(1), middleName),
+                        group,
+                        reader.GetString(6),
+                        reader.GetInt32(9)
+                    ));
+                }
+            }
+
+            Close();
+
+            return users;
+        }
+
+        public List<Group> getGroups(int id = -1) 
         {
             List<Group> groups = new List<Group>();
 
             Open();
-
-            SqlDataReader reader = Select(Database.Groups.TABLE_NAME);
+            SqlDataReader reader;
+            if (id == -1)
+            {
+                reader = Select(Database.Groups.TABLE_NAME);
+            }
+            else 
+            {
+                reader = Select(Database.Groups.TABLE_NAME,null, new Dictionary<string, object> {
+                    [Database.Groups.ID] = id
+                });
+            }
+            
 
             if (reader.FieldCount > 0)
             {
@@ -197,6 +342,66 @@ namespace School_Journal_App_VSProject.classes
             Close();
 
             return groups;
+        }
+
+        public List<SubjectItem> getItemsForSubject(int subjectId)
+        {
+            List<SubjectItem> groups = new List<SubjectItem>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.SubjectItem.TABLE_NAME, null, new Dictionary<string, object>
+            {
+                [Database.SubjectItem.SUBJECT_ID] = subjectId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    groups.Add(new SubjectItem(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(3),
+                        reader.GetInt32(4),
+                        reader.GetInt32(6)
+                    ));
+                }
+            }
+
+            Close();
+
+            return groups;
+        }
+
+        public Mark getMark(string userLogin, int subjectItemId)
+        {
+            Mark mark = new Mark();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Marks.TABLE_NAME, null, new Dictionary<string, object>
+            {
+                [Database.Marks.STUDENT] = userLogin,
+                [Database.Marks.ITEM] = subjectItemId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    mark = new Mark(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetInt32(3)
+                    );
+                }
+            }
+
+            Close();
+
+            return mark;
         }
 
     }
