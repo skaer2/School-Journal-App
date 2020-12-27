@@ -36,7 +36,7 @@ namespace School_Journal_App_VSProject.pages
             this.loadBlocks(framesAndBlocks);
 
             if (App.CurrentUser.role == 2) {
-                Groups.Height = new GridLength(0, GridUnitType.Auto);
+                Groups.Height = new GridLength(0, GridUnitType.Pixel);
                 List.Height = new GridLength(6, GridUnitType.Star);
             }
             

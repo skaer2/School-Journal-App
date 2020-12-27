@@ -16,7 +16,6 @@ using classes;
 using School_Journal_App_VSProject.classes;
 using School_Journal_App_VSProject.models;
 using School_Journal_App_VSProject.pages;
-using connector;
 
 namespace School_Journal_App_VSProject.blocks
 {
@@ -36,10 +35,10 @@ namespace School_Journal_App_VSProject.blocks
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Login.Text.Length > 0 && Password.Text.Length > 0)
+            if (Login.Text.Length > 0 && Password.Password.Length > 0)
             {
                 User user = SQLController.controller.GetUser(Login.Text);
-                if (user.CheckPassword(Password.Text))
+                if (user.CheckPassword(Password.Password))
                 {
                     App.CurrentUser = user;
                     WindowRouter.router.openPage(new JournalPage());

@@ -33,10 +33,6 @@ namespace School_Journal_App_VSProject
             WindowRouter.router.setFrame(MainFrame);
 
             WindowRouter.router.openPage(new LoginPage());
-
-            User user = SQLController.controller.GetUser("admin");
-
-            Console.WriteLine(user.name.Item1 + " " + user.name.Item2);
         }
 
         private void Window_Closed(object sender, EventArgs e)

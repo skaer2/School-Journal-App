@@ -35,7 +35,7 @@ namespace School_Journal_App_VSProject.classes
             {
                 if (con.State == ConnectionState.Closed)
                 {
-                    con.ConnectionString = "Data Source=SKAER2-ПК\\SQLEXPRESS;Initial Catalog=School-Journal-App-DB;Integrated Security=True";
+                    con.ConnectionString = "Data Source=DESKTOP-5LEEG3R;Initial Catalog=School-Journal-App-DB;Integrated Security=True";
                     con.Open();
                 }
             }
