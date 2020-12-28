@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.Windows.Forms.DataVisualization.Charting;
+using School_Journal_App_VSProject.classes;
+using classes;
+using System.Text.RegularExpressions;
 
 namespace School_Journal_App_VSProject.blocks
 {
@@ -22,27 +25,77 @@ namespace School_Journal_App_VSProject.blocks
     /// </summary>
     public partial class BStatisticsChart : Page
     {
-        public BStatisticsChart()
+        public int subjectId { get; private set; }
+
+        public BStatisticsChart(int subjectId)
         {
             InitializeComponent();
+            this.subjectId = subjectId;
 
-            ChartC.ChartAreas.Add(new ChartArea("Main"));
+            updateChart();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            updateChart();
+        }
+
+        private void updateChart()
+        {
+            ChartC.ChartAreas.Clear();
+            ChartC.ChartAreas.Add(new ChartArea("Статистика"));
 
             var currentSeries = new Series("Check")
             {
                 IsValueShownAsLabel = true,
-                ChartType = SeriesChartType.Pie                
+                ChartType = SeriesChartType.Pie,
+                Palette = ChartColorPalette.Chocolate,
             };
 
-            
+            var users = SQLController.controller.getUsersBySubject(subjectId);
 
-            currentSeries.Points.AddXY("1", "1");
-            currentSeries.Points.AddXY("2", "7");
-            currentSeries.Points.AddXY("3", "3");
-            currentSeries.Points.AddXY("4", "2");
+            List<int> scores = new List<int>();
 
+            if (users == null) users = new List<User>();
+            if (users.Count > 0)
+            {
+                foreach (var user in users)
+                {
+                    var marks = SQLController.controller.getMarks(user.login, subjectId);
+                    int sum = 0;
+                    foreach (var mark in marks)
+                    {
+                        Regex regex = new Regex("[0-9]+");
+                        if (mark.CurrentMark.Length > 0 && regex.IsMatch(mark.CurrentMark))
+                        {
+                            sum += int.Parse(mark.CurrentMark);
+                        }
+                    }
+
+                    int averageScore = sum / marks.Count;
+                    scores.Add(averageScore);
+                }
+            }
+
+            Dictionary<int, int> scoreCounts = new Dictionary<int, int>();
+            /*scoreCounts.Add(2, 0);
+            scoreCounts.Add(3, 0);
+            scoreCounts.Add(4, 0);
+            scoreCounts.Add(5, 0);*/
+            foreach (var score in scores)
+            {
+                if (scoreCounts.TryGetValue(score, out int buf)) scoreCounts[score] = buf + 1;
+                else scoreCounts.Add(score, 1);
+            }
+
+            foreach (var scoreDivision in scoreCounts)
+            {
+                currentSeries.Points.AddXY("Со средней оценкой \"" + scoreDivision.Key.ToString() + "\" : " + scoreDivision.Value.ToString(),
+                    scoreDivision.Value);
+            }
+
+            ChartC.Series.Clear();
             ChartC.Series.Add(currentSeries);
-
         }
     }
 }

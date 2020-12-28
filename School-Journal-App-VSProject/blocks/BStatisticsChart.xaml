@@ -7,10 +7,16 @@
       xmlns:dvc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BStatisticsChart">
+      Title="BStatisticsChart"
+      Loaded="Page_Loaded">
 
     <Grid>
-        <WindowsFormsHost>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Статистика оценок"/>
+        <WindowsFormsHost Grid.Row="1">
             <dvc:Chart x:Name="ChartC">
                 <dvc:Chart.Legends>
                     <dvc:Legend>

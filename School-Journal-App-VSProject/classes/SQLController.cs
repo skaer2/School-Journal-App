@@ -29,7 +29,7 @@ namespace School_Journal_App_VSProject.classes
             cmd = new SqlCommand("", con);
         }
 
-        private void Open() 
+        private void Open()
         {
             try
             {
@@ -62,8 +62,8 @@ namespace School_Journal_App_VSProject.classes
         {
             Open();
 
-            sql = "INSERT INTO [dbo].[users] ([first_name] ,[last_name], [middle_name] ,[birthday] ,[group_id] ,[email] ,[login] ,[password] ,[role])" + 
-                "VALUES (@firstName, @lastName, @middleName, '10.10.2010', @groupId, @email, @login, @password, @role)"; 
+            sql = "INSERT INTO [dbo].[users] ([first_name] ,[last_name], [middle_name] ,[birthday] ,[group_id] ,[email] ,[login] ,[password] ,[role])" +
+                "VALUES (@firstName, @lastName, @middleName, '10.10.2010', @groupId, @email, @login, @password, @role)";
             cmd = new SqlCommand(sql, con);
             cmd.Parameters.AddWithValue("@firstName", firstName);
             cmd.Parameters.AddWithValue("@lastName", lastName);
@@ -106,12 +106,12 @@ namespace School_Journal_App_VSProject.classes
             Close();
         }
 
-        public SqlDataReader Select(string from, List<string> what = null, Dictionary<string, object> where = null) 
+        public SqlDataReader Select(string from, List<string> what = null, Dictionary<string, object> where = null)
         {
             Open();
 
             string SQLWhat = "*";
-            if (what != null && what.Count > 0) 
+            if (what != null && what.Count > 0)
             {
                 SQLWhat = string.Join(", ", what);
             }
@@ -124,7 +124,7 @@ namespace School_Journal_App_VSProject.classes
                 {
                     string value = "";
 
-                    if (item.Value == null) 
+                    if (item.Value == null)
                     {
                         value = "NULL";
                     }
@@ -153,7 +153,7 @@ namespace School_Journal_App_VSProject.classes
             return reader;
         }
 
-        public void Insert(string table, List<string> to = null, List<object> value = null) 
+        public void Insert(string table, List<string> to = null, List<object> value = null)
         {
             Open();
 
@@ -216,7 +216,7 @@ namespace School_Journal_App_VSProject.classes
                 {
                     string value = "";
 
-                    if (item.Value == null) 
+                    if (item.Value == null)
                     {
                         value = "NULL";
                     }
@@ -251,8 +251,8 @@ namespace School_Journal_App_VSProject.classes
 
             Open();
 
-            SqlDataReader reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object> 
-            { 
+            SqlDataReader reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object>
+            {
                 [Database.Users.LOGIN] = login
             });
 
@@ -265,12 +265,12 @@ namespace School_Journal_App_VSProject.classes
                 {
                     middleName = reader.GetString(2);
                 }
-                catch {}
+                catch { }
                 try
                 {
                     group = reader.GetInt32(4);
                 }
-                catch {}
+                catch { }
 
                 user = new User(
                     reader.GetString(7),
@@ -293,7 +293,7 @@ namespace School_Journal_App_VSProject.classes
             Open();
 
             SqlDataReader reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object> {
-                [Database.Users.GROUP_ID]=  groupId
+                [Database.Users.GROUP_ID] = groupId
             });
 
             if (reader.FieldCount > 0)
@@ -375,24 +375,24 @@ namespace School_Journal_App_VSProject.classes
             return users;
         }
 
-        public List<Group> getGroups(int id = -1) 
+        public List<Group> getGroups(int id = -1)
         {
             List<Group> groups = new List<Group>();
 
             Open();
-          
+
             SqlDataReader reader;
             if (id == -1)
             {
                 reader = Select(Database.Groups.TABLE_NAME);
             }
-            else 
+            else
             {
-                reader = Select(Database.Groups.TABLE_NAME,null, new Dictionary<string, object> {
+                reader = Select(Database.Groups.TABLE_NAME, null, new Dictionary<string, object> {
                     [Database.Groups.ID] = id
                 });
             }
-            
+
 
             if (reader.FieldCount > 0)
             {
@@ -552,6 +552,67 @@ namespace School_Journal_App_VSProject.classes
             Close();
 
             return teacherLogin;
+        }
+
+        public List<User> getUsersBySubject(int subjectId)
+        {
+            List<User> users = new List<User>();
+
+            Open();
+
+            var what = new List<string>();
+            what.Add(Database.Subjects.GROUP_ID);
+            SqlDataReader reader = Select(Database.Subjects.TABLE_NAME, what, new Dictionary<string, object>
+            {
+                [Database.Subjects.ID] = subjectId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    var groupId = reader.GetInt32(0);
+                    reader.Close();
+
+                    reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object>
+                    {
+                        [Database.Users.GROUP_ID] = groupId
+                    });
+
+                    if (reader.FieldCount > 0)
+                    {
+                        while (reader.Read())
+                        {
+                            string middleName = "";
+                            int group = 0;
+
+                            try
+                            {
+                                middleName = reader.GetString(2);
+                            }
+                            catch { }
+                            try
+                            {
+                                group = reader.GetInt32(4);
+                            }
+                            catch { }
+
+                            users.Add(new User(
+                                reader.GetString(7),
+                                reader.GetString(8),
+                                new Tuple<string, string, string>(reader.GetString(0), reader.GetString(1), middleName),
+                                group,
+                                reader.GetString(6),
+                                reader.GetInt32(9)
+                            ));
+                        }
+                    }
+                }
+            }
+            reader.Close();
+            Close();
+
+            return users;
         }
     }
 }
