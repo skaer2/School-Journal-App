@@ -76,6 +76,15 @@
     <Compile Include="classes\Group.cs" />
     <Compile Include="classes\SQLController.cs" />
     <Compile Include="classes\Subject.cs" />
+    <Compile Include="pages\AdminPanel\AdminPanel.xaml.cs">
+      <DependentUpon>AdminPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\AdminPanel\AdminPanelPage.xaml.cs">
+      <DependentUpon>AdminPanelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_School_Journal_App_DBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -129,11 +138,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="pages\AdminPanel\AdminPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\AdminPanel\AdminPanelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\JournalPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

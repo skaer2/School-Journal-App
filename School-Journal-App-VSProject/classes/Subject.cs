@@ -12,16 +12,16 @@ namespace classes
         public int Id { get { return id; } }
         private readonly string title;
         public string Title { get { return title; } }
-        private readonly int teacherId;
-        public int TeacherId { get { return teacherId; } }
+        private readonly string teacherLogin;
+        public string TeacherLogin { get { return teacherLogin; } }
         private readonly int groupId;
         public int GroupId { get { return groupId; } }
 
-        public Subject(int _id, string _title, int _teacherId, int _groupId)
+        public Subject(int _id, string _title, string _teacherLogin, int _groupId)
         {
             id = _id;
             title = _title;
-            teacherId = _teacherId;
+            teacherLogin = _teacherLogin;
             groupId = _groupId;
         }
     }
