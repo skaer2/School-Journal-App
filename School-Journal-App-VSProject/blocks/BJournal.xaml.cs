@@ -115,16 +115,12 @@ namespace School_Journal_App_VSProject.blocks
 
             DataGrid dataGrid = sender as DataGrid;
             DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
-            Console.WriteLine(row.GetIndex());
             editingUser = usersForJournal[row.GetIndex()];
             DataGridCell RowColumn = dataGrid.Columns[clumn].GetCellContent(row).Parent as DataGridCell;
             string CellValue = ((TextBlock)RowColumn.Content).Text;
 
             lastValue = CellValue;
 
-            Console.WriteLine(CellValue);
-            Console.WriteLine(editingItem.Title);
-            Console.WriteLine(editingUser.login);
         }
 
         private void JournalList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -157,8 +153,6 @@ namespace School_Journal_App_VSProject.blocks
                     t.Text = lastValue;
                 }
             }
-
-            Console.WriteLine(t.Text .ToString());
         }
 
         private void JournalList_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)

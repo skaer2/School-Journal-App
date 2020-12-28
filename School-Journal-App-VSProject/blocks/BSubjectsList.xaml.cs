@@ -89,7 +89,6 @@ namespace School_Journal_App_VSProject.blocks
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine((int)(sender as Button).Tag);
             var addWindow = new WAddSubjectItem((int)(sender as Button).Tag);
             addWindow.Show();
             addWindow.Closed += AddWindow_Closed;
@@ -106,7 +105,6 @@ namespace School_Journal_App_VSProject.blocks
 
         private void OpenItem_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine((int)(sender as Button).Tag);
             var infoWindow = new WSubjectInfo((int)(sender as Button).Tag);
             infoWindow.Show();
             infoWindow.Closed += AddWindow_Closed;

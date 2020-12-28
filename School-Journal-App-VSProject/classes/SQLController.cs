@@ -146,7 +146,6 @@ namespace School_Journal_App_VSProject.classes
             }
 
             sql = "SELECT " + SQLWhat + " FROM " + from + SQLWhere;
-            //Console.WriteLine(sql);
             cmd = new SqlCommand(sql, con);
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -196,7 +195,6 @@ namespace School_Journal_App_VSProject.classes
             }
 
             sql = "INSERT INTO " + table + " " + SQLWhat + "VALUES " + SQLValue;
-            //Console.WriteLine(sql);
             cmd = new SqlCommand(sql, con);
             cmd.ExecuteNonQuery();
 
@@ -238,7 +236,6 @@ namespace School_Journal_App_VSProject.classes
             }
 
             sql = "DELETE FROM " + table + SQLWhere;
-            //Console.WriteLine(sql);
             cmd = new SqlCommand(sql, con);
             cmd.ExecuteNonQuery();
 

@@ -32,8 +32,6 @@ namespace School_Journal_App_VSProject.blocks
             InitializeComponent();
             this.subjectId = subjectId;
 
-            Console.WriteLine(subjectId.ToString());
-
             updateChart();
         }
 
@@ -75,7 +73,8 @@ namespace School_Journal_App_VSProject.blocks
                     }
                     if (marks.Count > 0)
                     {
-                        int averageScore = sum / marks.Count;
+                        double buf = ((double)sum) / ((double)marks.Count);
+                        int averageScore = (int) Math.Ceiling(buf);
                         scores.Add(averageScore);
                     }
                 }
@@ -101,7 +100,6 @@ namespace School_Journal_App_VSProject.blocks
                 }
                 else
                 {
-                    Console.WriteLine("score count:" + scores.Count);
                     WinFormHost.Visibility = Visibility.Hidden;
                     EmptyListLbl.Visibility = Visibility.Visible;
                 }
