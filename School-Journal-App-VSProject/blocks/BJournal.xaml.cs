@@ -154,5 +154,10 @@ namespace School_Journal_App_VSProject.blocks
 
             Console.WriteLine(t.Text .ToString());
         }
+
+        private void JournalList_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+
+        }
     }
 }

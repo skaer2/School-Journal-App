@@ -20,6 +20,7 @@ namespace classes
         public int GroupId { get { return groupId; } }
 
         public Subject() { }
+
         public Subject(int _id, string _title, string _teacherLogin, int _groupId)
         {
             id = _id;

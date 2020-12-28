@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
+using School_Journal_App_VSProject.pages;
+
 namespace School_Journal_App_VSProject.models
 {
     class WindowRouter

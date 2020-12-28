@@ -58,7 +58,55 @@ namespace School_Journal_App_VSProject.classes
             }
         }
 
-        private SqlDataReader Select(string from, List<string> what = null, Dictionary<string, object> where = null) 
+        public void InsertUser(string firstName, string lastName, string middleName, int groupId, string email, string login, string _password, int role)
+        {
+            Open();
+
+            sql = "INSERT INTO [dbo].[users] ([first_name] ,[last_name], [middle_name] ,[birthday] ,[group_id] ,[email] ,[login] ,[password] ,[role])" + 
+                "VALUES (@firstName, @lastName, @middleName, '10.10.2010', @groupId, @email, @login, @password, @role)"; 
+            cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@firstName", firstName);
+            cmd.Parameters.AddWithValue("@lastName", lastName);
+            cmd.Parameters.AddWithValue("@middleName", middleName);
+            cmd.Parameters.AddWithValue("@groupId", groupId);
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@login", login);
+            cmd.Parameters.AddWithValue("@password", _password);
+            cmd.Parameters.AddWithValue("@role", role);
+            cmd.ExecuteNonQuery();
+
+            Close();
+        }
+
+        internal void InsertSubject(string title, string teacherId, int groupId)
+        {
+            Open();
+
+            sql = "INSERT INTO [dbo].[subjects] ([title], [teacher_id], [group_id])" +
+                "VALUES (@title, @teacherId, @groupId)";
+            cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@teacherId", teacherId);
+            cmd.Parameters.AddWithValue("@groupId", groupId);
+            cmd.ExecuteNonQuery();
+
+            Close();
+        }
+
+        internal void InsertGroup(string title)
+        {
+            Open();
+
+            sql = "INSERT INTO [dbo].[groups] ([title])" +
+                "VALUES (@title)";
+            cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.ExecuteNonQuery();
+
+            Close();
+        }
+
+        public SqlDataReader Select(string from, List<string> what = null, Dictionary<string, object> where = null) 
         {
             Open();
 
@@ -282,11 +330,57 @@ namespace School_Journal_App_VSProject.classes
             return users;
         }
 
+        public List<User> getUsersWithRole(int role)
+        {
+            List<User> users = new List<User>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object>
+            {
+                [Database.Users.ROLE] = role
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    string middleName = "";
+                    int group = 0;
+
+                    try
+                    {
+                        middleName = reader.GetString(2);
+                    }
+                    catch { }
+                    try
+                    {
+                        group = reader.GetInt32(4);
+                    }
+                    catch { }
+
+                    users.Add(new User(
+                        reader.GetString(7),
+                        reader.GetString(8),
+                        new Tuple<string, string, string>(reader.GetString(0), reader.GetString(1), middleName),
+                        group,
+                        reader.GetString(6),
+                        reader.GetInt32(9)
+                    ));
+                }
+            }
+
+            Close();
+
+            return users;
+        }
+
         public List<Group> getGroups(int id = -1) 
         {
             List<Group> groups = new List<Group>();
 
             Open();
+          
             SqlDataReader reader;
             if (id == -1)
             {
@@ -403,6 +497,5 @@ namespace School_Journal_App_VSProject.classes
 
             return mark;
         }
-
     }
 }

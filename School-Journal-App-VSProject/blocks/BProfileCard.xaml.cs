@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using School_Journal_App_VSProject.models;
+using School_Journal_App_VSProject.pages;
+
 namespace School_Journal_App_VSProject.blocks
 {
     /// <summary>
@@ -44,6 +47,11 @@ namespace School_Journal_App_VSProject.blocks
             {
                 NameUser.Content = App.CurrentUser.name.Item1 + " " + App.CurrentUser.name.Item2 + " " + App.CurrentUser.name.Item3;
             }
+        }
+
+        private void AdminPanel_Click(object sender, RoutedEventArgs e)
+        {
+            WindowRouter.router.openPage(new AdminPanelClass());
         }
     }
 }
