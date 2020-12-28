@@ -37,9 +37,9 @@ namespace School_Journal_App_VSProject.blocks
             InitializeComponent();
         }
 
-        public void UpdateJournal(Subject subject, int groupId)
+        public void UpdateJournal(Subject subject, int groupId, bool isReload)
         {
-            if (lastSubject.Id != subject.Id)
+            if (lastSubject.Id != subject.Id || isReload)
             {
                 lastSubject = subject;
                 Text.Content = subject.Title;

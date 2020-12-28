@@ -78,6 +78,9 @@
     <Compile Include="classes\SQLController.cs" />
     <Compile Include="classes\Subject.cs" />
     <Compile Include="classes\SubjectItem.cs" />
+    <Compile Include="pages\WAddSubjectItem.xaml.cs">
+      <DependentUpon>WAddSubjectItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_School_Journal_App_DBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -136,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\WAddSubjectItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

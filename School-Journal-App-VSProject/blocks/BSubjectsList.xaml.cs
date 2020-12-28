@@ -1,5 +1,6 @@
 ﻿using classes;
 using School_Journal_App_VSProject.classes;
+using School_Journal_App_VSProject.pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,13 @@ namespace School_Journal_App_VSProject.blocks
     /// </summary>
     public partial class BSubjectsList : Page
     {
-        public delegate void DelegateSelect(Subject subject, int groupId);
+        public delegate void DelegateSelect(Subject subject, int groupId, bool isNew = false);
         private DelegateSelect _delegate;
 
         List<Subject> listSubjects;
         int prevGroup = -1;
         private int currentGroupId = 0;
+        private int selected = 0;
 
         public BSubjectsList()
         {
@@ -40,34 +42,47 @@ namespace School_Journal_App_VSProject.blocks
             currentGroupId = groupId;
             if (App.CurrentUser.groupId != 0) currentGroupId = App.CurrentUser.groupId;
             if (currentGroupId != prevGroup) {
+                selected = 0;
                 prevGroup = groupId;
                 SubjectList.Items.Clear();
                 listSubjects = SQLController.controller.getSubjectsForGroups(currentGroupId);
 
-                foreach (var item in listSubjects)
+                if (listSubjects.Count > 0)
                 {
-                    SubjectList.Items.Add(item);
-                }
+                    foreach (var item in listSubjects)
+                    {
+                        SubjectList.Items.Add(item);
+                    }
 
-                SubjectList.SelectedIndex = 0;
-                _delegate?.Invoke(listSubjects[0], currentGroupId);
+                    SubjectList.SelectedIndex = selected;
+                    _delegate?.Invoke(listSubjects[selected], currentGroupId);
+                }
             }
         }
 
         public void setOnSelectedListener(DelegateSelect rDelegate) 
         {
             _delegate = rDelegate;
-            _delegate?.Invoke(listSubjects[0], currentGroupId);
+            _delegate?.Invoke(listSubjects[selected], currentGroupId);
         }
 
         private void SubjectList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _delegate?.Invoke(listSubjects[(sender as ListView).SelectedIndex], currentGroupId);
+            selected = (sender as ListView).SelectedIndex;
+            _delegate?.Invoke(listSubjects[selected], currentGroupId);
         }
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine((sender as Button).Tag);
+            Console.WriteLine((int)(sender as Button).Tag);
+            var addWindow = new WAddSubjectItem((int)(sender as Button).Tag);
+            addWindow.Show();
+            addWindow.Closed += AddWindow_Closed;
+        }
+
+        private void AddWindow_Closed(object sender, EventArgs e)
+        {
+            _delegate?.Invoke(listSubjects[selected], currentGroupId, true);
         }
     }
 }
