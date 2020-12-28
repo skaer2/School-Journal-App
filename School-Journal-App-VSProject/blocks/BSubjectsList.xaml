@@ -22,7 +22,7 @@
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
                     <GridViewColumn Width="140" DisplayMemberBinding="{Binding Path=Title}"></GridViewColumn>
-                    <GridViewColumn Width="40">
+                    <GridViewColumn Width="40" x:Name="AddItenBtn">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Name="AddItem" Tag="{Binding Path=Id}" Click="AddItem_Click">

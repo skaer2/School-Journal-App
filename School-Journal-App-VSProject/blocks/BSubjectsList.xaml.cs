@@ -35,6 +35,12 @@ namespace School_Journal_App_VSProject.blocks
         {
             InitializeComponent();
 
+            if (App.CurrentUser.role == 2)
+            {
+                AddItenBtn.Width = 0;
+            }
+
+
         }
 
         public void Reload(int groupId) 
