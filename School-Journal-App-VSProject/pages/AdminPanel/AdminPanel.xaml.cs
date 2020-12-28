@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using School_Journal_App_VSProject.models;
 using School_Journal_App_VSProject.pages;
 
 namespace School_Journal_App_VSProject.pages
@@ -18,27 +19,17 @@ namespace School_Journal_App_VSProject.pages
     /// <summary>
     /// Interaction logic for AdminPanel.xaml
     /// </summary>
-    public partial class AdminPanelClass : Window
+    public partial class AdminPanelClass : Page
     {
         public AdminPanelClass()
         {
             InitializeComponent();
-            AdminPanelFrame.Navigate(new pages.AdminPanel.AddUserPage());
+            AdminPanelFrame.Navigate(new AdminPanel.AdminPanelPage());
         }
 
-        private void AddUserBtnClick(object sender, RoutedEventArgs e)
+        private void BackBtnClick(object sender, RoutedEventArgs e)
         {
-            AdminPanelFrame.Navigate(new pages.AdminPanel.AddUserPage());
-        }
-
-        private void AddGroupBtnClick(object sender, RoutedEventArgs e)
-        {
-            AdminPanelFrame.Navigate(new pages.AdminPanel.AddGroupPage());
-        }
-
-        private void AddSubjectBtnClick(object sender, RoutedEventArgs e)
-        {
-            AdminPanelFrame.Navigate(new pages.AdminPanel.AddSubjectPage());
+            WindowRouter.router.openPage(new JournalPage());
         }
     }
 }

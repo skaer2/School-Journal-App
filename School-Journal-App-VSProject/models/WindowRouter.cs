@@ -23,12 +23,5 @@ namespace School_Journal_App_VSProject.models
         {
             mainFrame.Navigate(page);
         }
-
-        public void openAdminPanel()
-        {
-            AdminPanelClass adminpanel = new AdminPanelClass();
-
-            adminpanel.Show();
-        }
     }
 }

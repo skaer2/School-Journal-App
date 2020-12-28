@@ -32,7 +32,7 @@ namespace School_Journal_App_VSProject.classes
             {
                 if (con.State == ConnectionState.Closed)
                 {
-                    con.ConnectionString = "Data Source=SKAER2-ПК\\SQLEXPRESS;Initial Catalog=School-Journal-App-DB;Integrated Security=True";
+                    con.ConnectionString = "Data Source=DESKTOP-5LEEG3R;Initial Catalog=School-Journal-App-DB;Integrated Security=True";
                     con.Open();
                 }
             }
@@ -55,15 +55,16 @@ namespace School_Journal_App_VSProject.classes
             }
         }
 
-        public void InsertUser(string firstName, string lastName, int groupId, string email, string login, string _password, int role)
+        public void InsertUser(string firstName, string lastName, string middleName, int groupId, string email, string login, string _password, int role)
         {
             Open();
 
-            sql = "INSERT INTO [dbo].[users] ([first_name] ,[last_name] ,[birthday] ,[group_id] ,[email] ,[login] ,[password] ,[role])" + 
-                "VALUES (@firstName, @lastName, '10.10.2010', @groupId, @email, @login, @password, @role)"; 
+            sql = "INSERT INTO [dbo].[users] ([first_name] ,[last_name], [middle_name] ,[birthday] ,[group_id] ,[email] ,[login] ,[password] ,[role])" + 
+                "VALUES (@firstName, @lastName, @middleName, '10.10.2010', @groupId, @email, @login, @password, @role)"; 
             cmd = new SqlCommand(sql, con);
             cmd.Parameters.AddWithValue("@firstName", firstName);
             cmd.Parameters.AddWithValue("@lastName", lastName);
+            cmd.Parameters.AddWithValue("@middleName", middleName);
             cmd.Parameters.AddWithValue("@groupId", groupId);
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@login", login);
@@ -74,7 +75,7 @@ namespace School_Journal_App_VSProject.classes
             Close();
         }
 
-        internal void InsertSubject(string title, int teacherId, int groupId)
+        internal void InsertSubject(string title, string teacherId, int groupId)
         {
             Open();
 
@@ -149,6 +150,98 @@ namespace School_Journal_App_VSProject.classes
             return reader;
         }
 
+        public void Insert(string table, List<string> to = null, List<object> value = null) 
+        {
+            Open();
+
+            string SQLWhat = "";
+            string SQLValue = "";
+            if (to != null && to.Count > 0)
+            {
+                SQLWhat = " (";
+                SQLWhat += string.Join(", ", to);
+                SQLWhat += ")";
+            }
+
+            if (value != null && value.Count > 0)
+            {
+                SQLValue = "(";
+                List<string> whereList = new List<string>();
+
+                foreach (var item in value)
+                {
+                    string str = "";
+                    if (item == null)
+                    {
+                        str = "NULL";
+                    }
+
+                    if (item is int)
+                    {
+                        str = "" + item;
+                    }
+
+                    if (item is string)
+                    {
+                        str = "'" + item + "'";
+                    }
+
+                    whereList.Add(str);
+                }
+                SQLValue += string.Join(", ", whereList);
+                SQLValue += ")";
+            }
+
+            sql = "INSERT INTO " + table + " " + SQLWhat + "VALUES " + SQLValue;
+            Console.WriteLine(sql);
+            cmd = new SqlCommand(sql, con);
+            cmd.ExecuteNonQuery();
+
+            Close();
+        }
+
+        public void Delete(string table, Dictionary<string, object> where = null)
+        {
+            Open();
+
+            string SQLWhere = "";
+            List<string> whereList = new List<string>();
+            if (where != null)
+            {
+                SQLWhere = " WHERE ";
+                foreach (var item in where)
+                {
+                    string value = "";
+
+                    if (item.Value == null) 
+                    {
+                        value = "NULL";
+                    }
+
+                    if (item.Value is int)
+                    {
+                        value = "" + item.Value;
+                    }
+
+                    if (item.Value is string)
+                    {
+                        value = "'" + item.Value + "'";
+                    }
+
+                    whereList.Add(item.Key + " = " + value);
+                }
+                if (whereList.Count > 0)
+                    SQLWhere += string.Join(" AND ", whereList);
+            }
+
+            sql = "DELETE FROM " + table + SQLWhere;
+            Console.WriteLine(sql);
+            cmd = new SqlCommand(sql, con);
+            cmd.ExecuteNonQuery();
+
+            Close();
+        }
+
         public User GetUser(string login)
         {
             User user = new User();
@@ -191,13 +284,113 @@ namespace School_Journal_App_VSProject.classes
             return user;
         }
 
-        public List<Group> getGroups() 
+
+
+        public List<User> getUsersForGroup(int groupId) {
+            List<User> users = new List<User>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object> {
+                [Database.Users.GROUP_ID]=  groupId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    string middleName = "";
+                    int group = 0;
+
+                    try
+                    {
+                        middleName = reader.GetString(2);
+                    }
+                    catch { }
+                    try
+                    {
+                        group = reader.GetInt32(4);
+                    }
+                    catch { }
+
+                    users.Add(new User(
+                        reader.GetString(7),
+                        reader.GetString(8),
+                        new Tuple<string, string, string>(reader.GetString(0), reader.GetString(1), middleName),
+                        group,
+                        reader.GetString(6),
+                        reader.GetInt32(9)
+                    ));
+                }
+            }
+
+            Close();
+
+            return users;
+        }
+
+        public List<User> getUsersWithRole(int role)
+        {
+            List<User> users = new List<User>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Users.TABLE_NAME, null, new Dictionary<string, object>
+            {
+                [Database.Users.ROLE] = role
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    string middleName = "";
+                    int group = 0;
+
+                    try
+                    {
+                        middleName = reader.GetString(2);
+                    }
+                    catch { }
+                    try
+                    {
+                        group = reader.GetInt32(4);
+                    }
+                    catch { }
+
+                    users.Add(new User(
+                        reader.GetString(7),
+                        reader.GetString(8),
+                        new Tuple<string, string, string>(reader.GetString(0), reader.GetString(1), middleName),
+                        group,
+                        reader.GetString(6),
+                        reader.GetInt32(9)
+                    ));
+                }
+            }
+
+            Close();
+
+            return users;
+        }
+
+        public List<Group> getGroups(int id = -1) 
         {
             List<Group> groups = new List<Group>();
 
             Open();
-
-            SqlDataReader reader = Select(Database.Groups.TABLE_NAME);
+            SqlDataReader reader;
+            if (id == -1)
+            {
+                reader = Select(Database.Groups.TABLE_NAME);
+            }
+            else 
+            {
+                reader = Select(Database.Groups.TABLE_NAME,null, new Dictionary<string, object> {
+                    [Database.Groups.ID] = id
+                });
+            }
+            
 
             if (reader.FieldCount > 0)
             {
@@ -232,7 +425,7 @@ namespace School_Journal_App_VSProject.classes
                     groups.Add(new Subject(
                         reader.GetInt32(0),
                         reader.GetString(1),
-                        reader.GetInt32(2),
+                        reader.GetString(2),
                         reader.GetInt32(3)
                     ));
                 }
@@ -242,6 +435,5 @@ namespace School_Journal_App_VSProject.classes
 
             return groups;
         }
-
     }
 }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using School_Journal_App_VSProject.models;
+using School_Journal_App_VSProject.pages;
 
 namespace School_Journal_App_VSProject.blocks
 {
@@ -37,7 +38,7 @@ namespace School_Journal_App_VSProject.blocks
 
         private void AdminPanel_Click(object sender, RoutedEventArgs e)
         {
-            WindowRouter.router.openAdminPanel();
+            WindowRouter.router.openPage(new AdminPanelClass());
         }
     }
 }

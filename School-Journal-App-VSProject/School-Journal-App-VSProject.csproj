@@ -76,17 +76,11 @@
     <Compile Include="classes\Group.cs" />
     <Compile Include="classes\SQLController.cs" />
     <Compile Include="classes\Subject.cs" />
-    <Compile Include="pages\AdminPanel\AddGroupPage.xaml.cs">
-      <DependentUpon>AddGroupPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="pages\AdminPanel\AddSubjectPage.xaml.cs">
-      <DependentUpon>AddSubjectPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="pages\AdminPanel\AddUserPage.xaml.cs">
-      <DependentUpon>AddUserPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="pages\AdminPanel\AdminPanel.xaml.cs">
       <DependentUpon>AdminPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\AdminPanel\AdminPanelPage.xaml.cs">
+      <DependentUpon>AdminPanelPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
@@ -144,19 +138,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="pages\AdminPanel\AddGroupPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="pages\AdminPanel\AddSubjectPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="pages\AdminPanel\AddUserPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="pages\AdminPanel\AdminPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\AdminPanel\AdminPanelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
