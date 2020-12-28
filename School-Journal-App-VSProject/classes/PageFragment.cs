@@ -4,16 +4,15 @@ using System.Windows.Controls;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace interfaces
 {
     // usage: add an object of this class to a page(window) class, 
     //        then with the "addFrameBlock" function add each frame and a block for it.
     //        Use "loadBlocks" to load all added blocks in the page
-    public static class WindowFragment 
+    public static class PageFragment 
     {
-        public static void loadBlocks(this Window window, List<Tuple<Frame, Page>> framesAndBlocks)
+        public static void loadBlocks(this Page page, List<Tuple<Frame, Page>> framesAndBlocks)
         {
             foreach (var frAndBl in framesAndBlocks)
             {

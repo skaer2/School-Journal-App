@@ -21,7 +21,7 @@
         <ListView Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="SubjectList" PreviewMouseLeftButtonUp="SubjectList_PreviewMouseLeftButtonUp">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
-                    <GridViewColumn Width="180" DisplayMemberBinding="{Binding Path=Title}"></GridViewColumn>
+                    <GridViewColumn Width="140" DisplayMemberBinding="{Binding Path=Title}"></GridViewColumn>
                     <GridViewColumn Width="40">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -30,6 +30,15 @@
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="OpenItem" Tag="{Binding Path=Id}" Click="OpenItem_Click">
+                                    <Image Source="/images/eye.png" Width="10" Height="10" />
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>    
                     </GridViewColumn>
                 </GridView>
             </ListView.View>

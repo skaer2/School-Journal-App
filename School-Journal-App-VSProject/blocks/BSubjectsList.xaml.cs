@@ -46,6 +46,7 @@ namespace School_Journal_App_VSProject.blocks
                 prevGroup = groupId;
                 SubjectList.Items.Clear();
                 listSubjects = SQLController.controller.getSubjectsForGroups(currentGroupId);
+                if (listSubjects == null) listSubjects = new List<Subject>();
 
                 if (listSubjects.Count > 0)
                 {
@@ -63,13 +64,21 @@ namespace School_Journal_App_VSProject.blocks
         public void setOnSelectedListener(DelegateSelect rDelegate) 
         {
             _delegate = rDelegate;
-            _delegate?.Invoke(listSubjects[selected], currentGroupId);
+            if (listSubjects == null) listSubjects = new List<Subject>();
+            if (listSubjects.Count > 0)
+            {
+                _delegate?.Invoke(listSubjects[selected], currentGroupId);
+            }
         }
 
         private void SubjectList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             selected = (sender as ListView).SelectedIndex;
-            _delegate?.Invoke(listSubjects[selected], currentGroupId);
+            if (listSubjects == null) listSubjects = new List<Subject>();
+            if (listSubjects.Count > 0)
+            {
+                _delegate?.Invoke(listSubjects[selected], currentGroupId);
+            }
         }
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
@@ -82,7 +91,19 @@ namespace School_Journal_App_VSProject.blocks
 
         private void AddWindow_Closed(object sender, EventArgs e)
         {
-            _delegate?.Invoke(listSubjects[selected], currentGroupId, true);
+            if (listSubjects == null) listSubjects = new List<Subject>();
+            if (listSubjects.Count > 0)
+            {
+                _delegate?.Invoke(listSubjects[selected], currentGroupId, true);
+            }
+        }
+
+        private void OpenItem_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine((int)(sender as Button).Tag);
+            var infoWindow = new WSubjectInfo((int)(sender as Button).Tag);
+            infoWindow.Show();
+            infoWindow.Closed += AddWindow_Closed;
         }
     }
 }

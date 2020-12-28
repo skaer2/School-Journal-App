@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 
 using School_Journal_App_VSProject.models;
 using School_Journal_App_VSProject.pages;
+using classes;
 
 namespace School_Journal_App_VSProject.blocks
 {
@@ -24,29 +25,41 @@ namespace School_Journal_App_VSProject.blocks
     /// </summary>
     public partial class BProfileCard : Page
     {
-        public BProfileCard()
+        public BProfileCard(User user, bool showSettings = true)
         {
             InitializeComponent();
 
-            if (App.CurrentUser.role == 0)
+            if (user.role == 0)
             {
                 AdminPanel.Visibility = Visibility.Visible;
                 UserGroup.Content = "Администратор";
             }
-            if (App.CurrentUser.role == 1) 
+            if (user.role == 1) 
             {
                 UserGroup.Content = "Преподаватель";
             }
-            if (App.CurrentUser.role == 2)
+            if (user.role == 2)
             {
-                var group = SQLController.controller.getGroups(App.CurrentUser.groupId)[0];
-                UserGroup.Content = "Студент, " + group.Title;
+                var buf = SQLController.controller.getGroups(user.groupId);
+                if (buf.Count > 0)
+                {
+                    Group group = buf[0];
+                    UserGroup.Content = "Студент, " + group.Title;
+                }
+                else UserGroup.Content = "Студент, нет группы";
+
+
             }
 
-            if (App.CurrentUser != null) 
+            if (user != null) 
             {
-                NameUser.Content = App.CurrentUser.name.Item1 + " " + App.CurrentUser.name.Item2 + " " + App.CurrentUser.name.Item3;
+                NameUser.Content = user.name.Item1 + " " + user.name.Item2 + " " + user.name.Item3;
             }
+
+            if (showSettings)
+            {
+                SettingUser.Visibility = Visibility.Visible;
+            }else SettingUser.Visibility = Visibility.Hidden;
         }
 
         private void AdminPanel_Click(object sender, RoutedEventArgs e)

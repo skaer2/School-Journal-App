@@ -146,7 +146,7 @@ namespace School_Journal_App_VSProject.classes
             }
 
             sql = "SELECT " + SQLWhat + " FROM " + from + SQLWhere;
-            Console.WriteLine(sql);
+            //Console.WriteLine(sql);
             cmd = new SqlCommand(sql, con);
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -196,7 +196,7 @@ namespace School_Journal_App_VSProject.classes
             }
 
             sql = "INSERT INTO " + table + " " + SQLWhat + "VALUES " + SQLValue;
-            Console.WriteLine(sql);
+            //Console.WriteLine(sql);
             cmd = new SqlCommand(sql, con);
             cmd.ExecuteNonQuery();
 
@@ -238,7 +238,7 @@ namespace School_Journal_App_VSProject.classes
             }
 
             sql = "DELETE FROM " + table + SQLWhere;
-            Console.WriteLine(sql);
+            //Console.WriteLine(sql);
             cmd = new SqlCommand(sql, con);
             cmd.ExecuteNonQuery();
 
@@ -265,12 +265,12 @@ namespace School_Journal_App_VSProject.classes
                 {
                     middleName = reader.GetString(2);
                 }
-                catch { }
+                catch {}
                 try
                 {
                     group = reader.GetInt32(4);
                 }
-                catch { }
+                catch {}
 
                 user = new User(
                     reader.GetString(7),
@@ -496,6 +496,62 @@ namespace School_Journal_App_VSProject.classes
             Close();
 
             return mark;
+        }
+
+        public List<Mark> getMarks(string userLogin, int subjectItemId)
+        {
+            List<Mark> marks = new List<Mark>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Marks.TABLE_NAME, null, new Dictionary<string, object>
+            {
+                [Database.Marks.STUDENT] = userLogin,
+                [Database.Marks.ITEM] = subjectItemId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    marks.Add(new Mark(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetInt32(3)
+                    ));
+                }
+            }
+
+            Close();
+
+            return marks;
+        }
+
+        public string getTeacherBySubject(int subjectId)
+        {
+            string teacherLogin = "";
+
+            Open();
+
+            SqlDataReader reader;
+            reader = Select(Database.Subjects.TABLE_NAME, null, new Dictionary<string, object>
+            {
+                [Database.Subjects.ID] = subjectId
+            });
+
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    teacherLogin = reader.GetString(2);
+                }
+            }
+
+            Close();
+
+            return teacherLogin;
         }
     }
 }

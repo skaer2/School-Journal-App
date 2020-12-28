@@ -70,12 +70,6 @@ namespace School_Journal_App_VSProject.blocks
                 }
 
                 
-
-                foreach ( var l in headers)
-                {
-                    Console.WriteLine("l = " + l + " ");
-                }
-
                 JournalList.ItemsSource = GetDataTable(headers, list).DefaultView;
             }
 
