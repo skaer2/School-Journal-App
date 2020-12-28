@@ -51,17 +51,29 @@ namespace School_Journal_App_VSProject.blocks
                 usersForJournal = SQLController.controller.getUsersForGroup(groupId);
                 itemsForJournal = SQLController.controller.getItemsForSubject(subject.Id);
 
+                foreach (var item in itemsForJournal)
+                {
+                    headers.Add(item.Title);
+
+                }
+
                 foreach (var user in usersForJournal)
                 {
                     var value = new List<string> { user.name.Item1 + " " + user.name.Item2 + " " + user.name.Item3 };
 
                     foreach (var item in itemsForJournal)
                     {
-                        headers.Add(item.Title);
                         value.Add(SQLController.controller.getMark(user.login, item.Id).CurrentMark);
                     }
-
+                    
                     list.Add(value);
+                }
+
+                
+
+                foreach ( var l in headers)
+                {
+                    Console.WriteLine("l = " + l + " ");
                 }
 
                 JournalList.ItemsSource = GetDataTable(headers, list).DefaultView;
