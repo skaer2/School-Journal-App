@@ -16,17 +16,20 @@ namespace School_Journal_App_VSProject.classes
     class SQLController
     {
         public static SQLController controller = new SQLController();
-        public static string sql;
-        public static SqlConnection con;
-        public static SqlCommand cmd;
+        private static string sql;
+        private static SqlConnection con;
+        private static SqlCommand cmd;
+        private static SqlDataReader rd;
+        private static DataTable dt;
+        private static SqlDataAdapter da;
 
-        public SQLController()
+        SQLController()
         {
             con = new SqlConnection();
             cmd = new SqlCommand("", con);
         }
 
-        public void Open() 
+        private void Open() 
         {
             try
             {
@@ -41,7 +44,7 @@ namespace School_Journal_App_VSProject.classes
             }
         }
 
-        public void Close()
+        private void Close()
         {
             try
             {
@@ -105,7 +108,7 @@ namespace School_Journal_App_VSProject.classes
 
         public SqlDataReader Select(string from, List<string> what = null, Dictionary<string, object> where = null) 
         {
-            if (con.State == ConnectionState.Closed) Open();
+            Open();
 
             string SQLWhat = "*";
             if (what != null && what.Count > 0) 
@@ -128,7 +131,7 @@ namespace School_Journal_App_VSProject.classes
 
                     if (item.Value is int)
                     {
-                        value = ""+item.Value;
+                        value = "" + item.Value;
                     }
 
                     if (item.Value is string)
@@ -139,11 +142,11 @@ namespace School_Journal_App_VSProject.classes
                     whereList.Add(item.Key + " = " + value);
                 }
                 if (whereList.Count > 0)
-                    SQLWhere += string.Join(", ", whereList);
+                    SQLWhere += string.Join(" AND ", whereList);
             }
 
-            sql = "SELECT " + SQLWhat + " FROM " + from + " " + SQLWhere;
-
+            sql = "SELECT " + SQLWhat + " FROM " + from + SQLWhere;
+            Console.WriteLine(sql);
             cmd = new SqlCommand(sql, con);
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -284,8 +287,6 @@ namespace School_Journal_App_VSProject.classes
             return user;
         }
 
-
-
         public List<User> getUsersForGroup(int groupId) {
             List<User> users = new List<User>();
 
@@ -379,6 +380,7 @@ namespace School_Journal_App_VSProject.classes
             List<Group> groups = new List<Group>();
 
             Open();
+          
             SqlDataReader reader;
             if (id == -1)
             {
@@ -434,6 +436,66 @@ namespace School_Journal_App_VSProject.classes
             Close();
 
             return groups;
+        }
+
+        public List<SubjectItem> getItemsForSubject(int subjectId)
+        {
+            List<SubjectItem> groups = new List<SubjectItem>();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.SubjectItem.TABLE_NAME, null, new Dictionary<string, object>
+            {
+                [Database.SubjectItem.SUBJECT_ID] = subjectId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    groups.Add(new SubjectItem(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(3),
+                        reader.GetInt32(4),
+                        reader.GetInt32(6)
+                    ));
+                }
+            }
+
+            Close();
+
+            return groups;
+        }
+
+        public Mark getMark(string userLogin, int subjectItemId)
+        {
+            Mark mark = new Mark();
+
+            Open();
+
+            SqlDataReader reader = Select(Database.Marks.TABLE_NAME, null, new Dictionary<string, object>
+            {
+                [Database.Marks.STUDENT] = userLogin,
+                [Database.Marks.ITEM] = subjectItemId
+            });
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    mark = new Mark(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetInt32(3)
+                    );
+                }
+            }
+
+            Close();
+
+            return mark;
         }
     }
 }

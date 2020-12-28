@@ -31,6 +31,8 @@ namespace School_Journal_App_VSProject.blocks
 
             listGroups = SQLController.controller.getGroups();
 
+            
+
             foreach (var item in listGroups) {
                 GroupList.Items.Add(item.Title);
             }

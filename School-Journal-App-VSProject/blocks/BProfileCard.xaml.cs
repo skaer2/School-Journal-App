@@ -1,4 +1,5 @@
-﻿using System;
+﻿using School_Journal_App_VSProject.classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,19 @@ namespace School_Journal_App_VSProject.blocks
             InitializeComponent();
 
             if (App.CurrentUser.role == 0)
+            {
                 AdminPanel.Visibility = Visibility.Visible;
+                UserGroup.Content = "Администратор";
+            }
+            if (App.CurrentUser.role == 1) 
+            {
+                UserGroup.Content = "Преподаватель";
+            }
+            if (App.CurrentUser.role == 2)
+            {
+                var group = SQLController.controller.getGroups(App.CurrentUser.groupId)[0];
+                UserGroup.Content = "Студент, " + group.Title;
+            }
 
             if (App.CurrentUser != null) 
             {

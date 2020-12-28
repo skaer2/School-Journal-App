@@ -8,10 +8,31 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BSubjectsList">
 
+    <Page.Resources>
+        <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="SubjectList" PreviewMouseLeftButtonUp="SubjectList_PreviewMouseLeftButtonUp" />
+        <ListView Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="SubjectList" PreviewMouseLeftButtonUp="SubjectList_PreviewMouseLeftButtonUp">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
+                    <GridViewColumn Width="180" DisplayMemberBinding="{Binding Path=Title}"></GridViewColumn>
+                    <GridViewColumn Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="AddItem" Tag="{Binding Path=Id}" Click="AddItem_Click">
+                                    <Image Source="/images/add.png" Width="10" Height="10" />
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

@@ -54,8 +54,8 @@ namespace School_Journal_App_VSProject.pages
                 pageSubject.Reload(group);
             });
             
-            pageSubject.setOnSelectedListener((subject) => {
-                journal.setText(subject);
+            pageSubject.setOnSelectedListener((subject, id, isAdd) => {
+                journal.UpdateJournal(subject, id, isAdd);
             });
 
             framesAndBlocks.Add(new Tuple<Frame, Page>(GroupsBlock, groups));

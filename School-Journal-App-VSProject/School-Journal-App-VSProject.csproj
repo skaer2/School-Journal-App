@@ -74,8 +74,12 @@
     <Compile Include="classes\CryptographyController.cs" />
     <Compile Include="classes\Database.cs" />
     <Compile Include="classes\Group.cs" />
+    <Compile Include="classes\Mark.cs" />
     <Compile Include="classes\SQLController.cs" />
     <Compile Include="classes\Subject.cs" />
+    <Compile Include="classes\SubjectItem.cs" />
+    <Compile Include="pages\WAddSubjectItem.xaml.cs">
+      <DependentUpon>WAddSubjectItem.xaml</DependentUpon>
     <Compile Include="pages\AdminPanel\AdminPanel.xaml.cs">
       <DependentUpon>AdminPanel.xaml</DependentUpon>
     </Compile>
@@ -154,6 +158,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pages\WAddSubjectItem.xaml">
     <Page Include="pages\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +223,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\defaultProfile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
