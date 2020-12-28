@@ -80,14 +80,12 @@
     <Compile Include="classes\SubjectItem.cs" />
     <Compile Include="pages\WAddSubjectItem.xaml.cs">
       <DependentUpon>WAddSubjectItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pages\AdminPanel\AdminPanel.xaml.cs">
       <DependentUpon>AdminPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\AdminPanel\AdminPanelPage.xaml.cs">
       <DependentUpon>AdminPanelPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="pages\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Compile Include="_School_Journal_App_DBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -159,7 +157,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\WAddSubjectItem.xaml">
-    <Page Include="pages\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
