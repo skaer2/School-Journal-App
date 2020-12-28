@@ -504,22 +504,44 @@ namespace School_Journal_App_VSProject.classes
 
             Open();
 
-            SqlDataReader reader = Select(Database.Marks.TABLE_NAME, null, new Dictionary<string, object>
+            SqlDataReader reader = Select(Database.SubjectItem.TABLE_NAME, null, new Dictionary<string, object>
             {
-                [Database.Marks.STUDENT] = userLogin,
-                [Database.Marks.ITEM] = subjectItemId
+                [Database.SubjectItem.SUBJECT_ID] = subjectItemId
             });
+
+            List<string> items = new List<string>();
 
             if (reader.FieldCount > 0)
             {
                 while (reader.Read())
                 {
-                    marks.Add(new Mark(
-                        reader.GetInt32(0),
-                        reader.GetString(1),
-                        reader.GetString(2),
-                        reader.GetInt32(3)
-                    ));
+                    items.Add(reader.GetInt32(0).ToString());
+                }
+
+                reader.Close();
+
+                foreach (var item in items)
+                {
+                    reader = Select(Database.Marks.TABLE_NAME, null, new Dictionary<string, object>
+                    {
+                        [Database.Marks.STUDENT] = userLogin,
+                        [Database.Marks.ITEM] = item
+                    }) ;
+
+                    if (reader.FieldCount > 0)
+                    {
+                        while (reader.Read())
+                        {
+                            marks.Add(new Mark(
+                                reader.GetInt32(0),
+                                reader.GetString(1),
+                                reader.GetString(2),
+                                reader.GetInt32(3)
+                            ));
+                        }
+                    }
+
+                    reader.Close();
                 }
             }
 

@@ -16,7 +16,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Content="Статистика оценок"/>
-        <WindowsFormsHost Grid.Row="1">
+        <Label Name="EmptyListLbl" Content="Оценок нет" Grid.Row="1" Visibility="Hidden"/>
+        <WindowsFormsHost Name="WinFormHost" Grid.Row="1" Visibility="Visible">
             <dvc:Chart x:Name="ChartC">
                 <dvc:Chart.Legends>
                     <dvc:Legend>

@@ -79,8 +79,6 @@
     <Compile Include="blocks\BStatisticsChart.xaml.cs">
       <DependentUpon>BStatisticsChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="classes\CacheController.cs" />
-    <Compile Include="classes\CryptographyController.cs" />
     <Compile Include="classes\Database.cs" />
     <Compile Include="classes\Group.cs" />
     <Compile Include="classes\Mark.cs" />

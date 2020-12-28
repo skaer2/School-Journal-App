@@ -43,7 +43,12 @@ namespace School_Journal_App_VSProject.pages
         {
             string teacherLogin = SQLController.controller.getTeacherBySubject(subject);
             User user = SQLController.controller.GetUser(teacherLogin);
-            framesAndBlocks.Add(new Tuple<Frame, Page>(ProfileCardFrame, new BProfileCard(user, false)));
+            if (user.name != null)
+            {
+                framesAndBlocks.Add(new Tuple<Frame, Page>(ProfileCardFrame, new BProfileCard(user, false)));
+            }
+            else Console.WriteLine("Teacher was not found in database");
+
             framesAndBlocks.Add(new Tuple<Frame, Page>(ChartFrame, new BStatisticsChart(subject)));
         }
     }

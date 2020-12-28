@@ -32,6 +32,8 @@ namespace School_Journal_App_VSProject.blocks
             InitializeComponent();
             this.subjectId = subjectId;
 
+            Console.WriteLine(subjectId.ToString());
+
             updateChart();
         }
 
@@ -49,7 +51,7 @@ namespace School_Journal_App_VSProject.blocks
             {
                 IsValueShownAsLabel = true,
                 ChartType = SeriesChartType.Pie,
-                Palette = ChartColorPalette.Chocolate,
+                Palette = ChartColorPalette.Excel,
             };
 
             var users = SQLController.controller.getUsersBySubject(subjectId);
@@ -71,31 +73,46 @@ namespace School_Journal_App_VSProject.blocks
                             sum += int.Parse(mark.CurrentMark);
                         }
                     }
+                    if (marks.Count > 0)
+                    {
+                        int averageScore = sum / marks.Count;
+                        scores.Add(averageScore);
+                    }
+                }
+                if (scores == null) scores = new List<int>();
+                if (scores.Count > 0)
+                { 
+                    Dictionary<int, int> scoreCounts = new Dictionary<int, int>();
+                    foreach (var score in scores)
+                    {
+                        if (scoreCounts.TryGetValue(score, out int buf)) scoreCounts[score] = buf + 1;
+                        else scoreCounts.Add(score, 1);
+                    }
 
-                    int averageScore = sum / marks.Count;
-                    scores.Add(averageScore);
+                    foreach (var scoreDivision in scoreCounts)
+                    {
+                        currentSeries.Points.AddXY("Со средней оценкой \"" + scoreDivision.Key.ToString() + "\" : " + scoreDivision.Value.ToString(),
+                            scoreDivision.Value);
+                    }
+                    ChartC.Series.Clear();
+                    ChartC.Series.Add(currentSeries);
+                    WinFormHost.Visibility = Visibility.Visible;
+                    EmptyListLbl.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    Console.WriteLine("score count:" + scores.Count);
+                    WinFormHost.Visibility = Visibility.Hidden;
+                    EmptyListLbl.Visibility = Visibility.Visible;
                 }
             }
-
-            Dictionary<int, int> scoreCounts = new Dictionary<int, int>();
-            /*scoreCounts.Add(2, 0);
-            scoreCounts.Add(3, 0);
-            scoreCounts.Add(4, 0);
-            scoreCounts.Add(5, 0);*/
-            foreach (var score in scores)
+            else
             {
-                if (scoreCounts.TryGetValue(score, out int buf)) scoreCounts[score] = buf + 1;
-                else scoreCounts.Add(score, 1);
+                WinFormHost.Visibility = Visibility.Hidden;
+                EmptyListLbl.Visibility = Visibility.Visible;
             }
 
-            foreach (var scoreDivision in scoreCounts)
-            {
-                currentSeries.Points.AddXY("Со средней оценкой \"" + scoreDivision.Key.ToString() + "\" : " + scoreDivision.Value.ToString(),
-                    scoreDivision.Value);
-            }
-
-            ChartC.Series.Clear();
-            ChartC.Series.Add(currentSeries);
+            
         }
     }
 }
