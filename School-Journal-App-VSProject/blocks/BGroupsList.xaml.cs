@@ -36,24 +36,39 @@ namespace School_Journal_App_VSProject.blocks
             else if (App.CurrentUser.role == 1)
             {
                 listGroups = SQLController.controller.getGroupsByTeacher(App.CurrentUser.login);
+            }else if(App.CurrentUser.role == 2)
+            {
+                listGroups = SQLController.controller.getGroups();
             }
 
-            foreach (var item in listGroups) {
-                GroupList.Items.Add(item.Title);
+            if (listGroups == null) listGroups = new List<Group>();
+            if (listGroups.Count > 0)
+            {
+                foreach (var item in listGroups)
+                {
+                    GroupList.Items.Add(item.Title);
+                }
             }
-            
             GroupList.SelectedIndex = 0;
         }
 
         public void SetOnSelectedListener(DelegateSelected rDelegate)
         {
             _delegate = rDelegate;
-            _delegate.Invoke(listGroups[0].Id);
+            if (listGroups == null) listGroups = new List<Group>();
+            if (listGroups.Count > 0)
+            {
+                _delegate.Invoke(listGroups[0].Id);
+            }
         }
 
         private void GroupList_Selected(object sender, RoutedEventArgs e)
         {
-            _delegate.Invoke(listGroups[(sender as ListView).SelectedIndex].Id);
+            if (listGroups == null) listGroups = new List<Group>();
+            if (listGroups.Count > 0 && (sender as ListView).SelectedIndex >= 0)
+            {
+                _delegate.Invoke(listGroups[(sender as ListView).SelectedIndex].Id);
+            }
         }
     }
 }
