@@ -29,9 +29,14 @@ namespace School_Journal_App_VSProject.blocks
         {
             InitializeComponent();
 
-            listGroups = SQLController.controller.getGroups();
-
-            
+            if (App.CurrentUser.role == 0)
+            {
+                listGroups = SQLController.controller.getGroups();
+            }
+            else if (App.CurrentUser.role == 1)
+            {
+                listGroups = SQLController.controller.getGroupsByTeacher(App.CurrentUser.login);
+            }
 
             foreach (var item in listGroups) {
                 GroupList.Items.Add(item.Title);

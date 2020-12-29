@@ -369,6 +369,44 @@ namespace School_Journal_App_VSProject.classes
             return users;
         }
 
+        public List<Group> getGroupsByTeacher(string teacherLogin)
+        {
+            List<Group> groups = new List<Group>();
+
+            Open();
+
+            var what = new List<string>();
+            what.Add(Database.Subjects.GROUP_ID);
+            SqlDataReader reader = Select(Database.Subjects.TABLE_NAME, what, new Dictionary<string, object>
+            {
+                [Database.Subjects.TEACHER_ID] = teacherLogin
+            });
+
+            HashSet<int> groupIds = new HashSet<int>();
+
+            if (reader.FieldCount > 0)
+            {
+                while (reader.Read())
+                {
+                    groupIds.Add(reader.GetInt32(0));
+                }
+
+                reader.Close();
+
+                foreach (var group in groupIds)
+                {
+                    var buf = getGroups(group);
+                    if (buf == null) buf = new List<Group>();
+                    if (buf.Count > 0 ) 
+                        groups.Add(buf[0]);
+                }
+            }
+            reader.Close();
+            Close();
+
+            return groups;
+        }
+
         public List<Group> getGroups(int id = -1)
         {
             List<Group> groups = new List<Group>();
@@ -399,6 +437,7 @@ namespace School_Journal_App_VSProject.classes
                 }
             }
 
+            reader.Close();
             Close();
 
             return groups;
