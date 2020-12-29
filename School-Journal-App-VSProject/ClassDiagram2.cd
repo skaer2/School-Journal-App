@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="School_Journal_App_VSProject.pages.AdminPanelClass" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>pages\AdminPanel\AdminPanel.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.775" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.pages.JournalPage" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>pages\JournalPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.787" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.pages.LoginPage" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>pages\LoginPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.pages.WAddSubjectItem" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAABAAIAAAAACABAAAAAAA=</HashCode>
+      <FileName>pages\WAddSubjectItem.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.94" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.pages.WSubjectInfo" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAACIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>pages\WSubjectInfo.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.939" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.pages.AdminPanel.AdminPanelPage" BaseTypeListCollapsed="true">
+    <Position X="1" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAgAAAAEAAAAAIAAAABAQAAEAAAAAAAAAAIAAAAI=</HashCode>
+      <FileName>pages\AdminPanel\AdminPanelPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.787" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.blocks.BFormAuth" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>blocks\BFormAuth.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.blocks.BGroupsList" BaseTypeListCollapsed="true">
+    <Position X="9" Y="2" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="School_Journal_App_VSProject.blocks.BGroupsList.DelegateSelected" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>blocks\BGroupsList.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAgAAAAAAAAAAAACIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>blocks\BGroupsList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.blocks.BJournal" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAEAAALAAgAAAAAEAAAgAAAgCAACAAAAg=</HashCode>
+      <FileName>blocks\BJournal.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.blocks.BProfileCard" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>blocks\BProfileCard.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.blocks.BStatisticsChart" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>blocks\BStatisticsChart.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="School_Journal_App_VSProject.blocks.BSubjectsList" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="2" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="School_Journal_App_VSProject.blocks.BSubjectsList.DelegateSelect" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>blocks\BSubjectsList.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAgIAAAAAAAAAAAAAQCKAAAAACAAAAACAAAAgAEAIA=</HashCode>
+      <FileName>blocks\BSubjectsList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="System.Windows.Controls.Page" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="System.Windows.Window" Collapsed="true">
+    <Position X="5.25" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

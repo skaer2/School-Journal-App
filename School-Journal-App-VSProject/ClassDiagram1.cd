@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="School_Journal_App_VSProject.classes.Database">
+    <Position X="16.75" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="School_Journal_App_VSProject.classes.Database.Users" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>classes\Database.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="School_Journal_App_VSProject.classes.Database.Groups" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>classes\Database.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="School_Journal_App_VSProject.classes.Database.Subjects" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>classes\Database.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="School_Journal_App_VSProject.classes.Database.SubjectItem" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>classes\Database.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="School_Journal_App_VSProject.classes.Database.Marks" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>classes\Database.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>classes\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="School_Journal_App_VSProject.classes.SQLController">
+    <Position X="15" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAgAAAIAUIAIAAYUUAAAEEAAAAEAAARgCAAGA=</HashCode>
+      <FileName>classes\SQLController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="classes.Group">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>classes\Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="classes.Mark">
+    <Position X="11.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAACAgAAAgAAAAAAAAAAAAAAAAAAAABAAggA=</HashCode>
+      <FileName>classes\Mark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="classes.Subject">
+    <Position X="13" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEQAAABEAAAAAAAAAAAAAAAAABAAEAAQABAgA=</HashCode>
+      <FileName>classes\Subject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="classes.SubjectItem">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQSAAAEUAAAAEAAAAAAAAAAAAAAAAABgAAAAYAAAgA=</HashCode>
+      <FileName>classes\SubjectItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="classes.User">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAABAAgAAAAABgAAAAEAAACAAAAAoAAEAA=</HashCode>
+      <FileName>classes\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="interfaces.PageFragment">
+    <Position X="13.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>classes\PageFragment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="interfaces.WindowFragment">
+    <Position X="12" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>classes\WindowFragment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

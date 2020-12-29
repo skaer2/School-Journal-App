@@ -19,9 +19,6 @@ namespace School_Journal_App_VSProject.classes
         private static string sql;
         private static SqlConnection con;
         private static SqlCommand cmd;
-        private static SqlDataReader rd;
-        private static DataTable dt;
-        private static SqlDataAdapter da;
 
         SQLController()
         {
