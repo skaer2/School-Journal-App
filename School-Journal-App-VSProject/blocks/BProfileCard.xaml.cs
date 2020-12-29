@@ -25,7 +25,7 @@ namespace School_Journal_App_VSProject.blocks
     /// </summary>
     public partial class BProfileCard : Page
     {
-        public BProfileCard(User user, bool showSettings = true)
+        public BProfileCard(User user, bool showSettings = true, bool showQuit = true)
         {
             InitializeComponent();
 
@@ -60,11 +60,23 @@ namespace School_Journal_App_VSProject.blocks
             {
                 SettingUser.Visibility = Visibility.Visible;
             }else SettingUser.Visibility = Visibility.Hidden;
+
+            if (showQuit)
+            {
+                Quit.Visibility = Visibility.Visible;
+            }
+            else Quit.Visibility = Visibility.Hidden;
         }
 
         private void AdminPanel_Click(object sender, RoutedEventArgs e)
         {
             WindowRouter.router.openPage(new AdminPanelClass());
+        }
+
+        private void Quit_Click(object sender, RoutedEventArgs e)
+        {
+            WindowRouter.router.openPage(new LoginPage());
+            App.CurrentUser = null;
         }
     }
 }

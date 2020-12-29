@@ -60,9 +60,6 @@ namespace School_Journal_App_VSProject.blocks
                     {
                         SubjectList.Items.Add(item);
                     }
-
-                    SubjectList.SelectedIndex = selected;
-                    _delegate?.Invoke(listSubjects[selected], currentGroupId);
                 }
             }
         }
@@ -81,7 +78,7 @@ namespace School_Journal_App_VSProject.blocks
         {
             selected = (sender as ListView).SelectedIndex;
             if (listSubjects == null) listSubjects = new List<Subject>();
-            if (listSubjects.Count > 0)
+            if (listSubjects.Count > 0 && selected >= 0)
             {
                 _delegate?.Invoke(listSubjects[selected], currentGroupId);
             }
@@ -97,7 +94,7 @@ namespace School_Journal_App_VSProject.blocks
         private void AddWindow_Closed(object sender, EventArgs e)
         {
             if (listSubjects == null) listSubjects = new List<Subject>();
-            if (listSubjects.Count > 0)
+            if (listSubjects.Count > 0 && selected >= 0)
             {
                 _delegate?.Invoke(listSubjects[selected], currentGroupId, true);
             }

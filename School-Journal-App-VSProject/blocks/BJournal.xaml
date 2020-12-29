@@ -14,7 +14,7 @@
             <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
 
-        <Label Name="Text" Grid.Row="0" Grid.Column="0" Content="Hello" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
+        <Label Name="Text" Grid.Row="0" Grid.Column="0" Content="Добро пожаловать! Выберите журнал" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
         <DataGrid Name="JournalList" Grid.Row="1" HorizontalAlignment="Stretch" CanUserAddRows="False" VerticalAlignment="Stretch" BeginningEdit="JournalList_BeginningEdit" CellEditEnding="JournalList_CellEditEnding" />
     </Grid>
 </Page>

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:School_Journal_App_VSProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="480" Width="640"
+        MinHeight="480" MinWidth="640"
         Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>

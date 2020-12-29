@@ -45,7 +45,7 @@ namespace School_Journal_App_VSProject.pages
             User user = SQLController.controller.GetUser(teacherLogin);
             if (user.name != null)
             {
-                framesAndBlocks.Add(new Tuple<Frame, Page>(ProfileCardFrame, new BProfileCard(user, false)));
+                framesAndBlocks.Add(new Tuple<Frame, Page>(ProfileCardFrame, new BProfileCard(user, false, false)));
             }
             else Console.WriteLine("Teacher was not found in database");
 

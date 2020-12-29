@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:School_Journal_App_VSProject.pages"      
         mc:Ignorable="d"
-        Title="WSubjectInfo" Height="450" Width="531.992">
+        Title="WSubjectInfo" Height="450" Width="531.992"
+        ResizeMode="NoResize">
     <Grid>
         <Frame Name="ProfileCardFrame" Content="Обратитесь к системному администратору" HorizontalAlignment="Left" Height="93" Margin="10,10,0,0" VerticalAlignment="Top" Width="333" NavigationUIVisibility="Hidden"/>
         <Frame x:Name="ChartFrame" Content="Frame" HorizontalAlignment="Left" Height="307" Margin="10,103,0,0" VerticalAlignment="Top" Width="504" NavigationUIVisibility="Hidden"/>

@@ -28,6 +28,7 @@
 
         </Grid>
         <Image Name="UserPhoto" Grid.Column="0" HorizontalAlignment="Stretch" Height="60" Margin="0,10,0,0" VerticalAlignment="Top" Width="60" Source="/School-Journal-App-VSProject;component/images/defaultProfile.jpg"/>
+        <Button Name="Quit" Content="Выход" HorizontalAlignment="Left" Margin="6,75,0,0" VerticalAlignment="Top" Width="60" Click="Quit_Click"/>
 
     </Grid>
 </Page>
