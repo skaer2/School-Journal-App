@@ -59,13 +59,24 @@ namespace School_Journal_App_VSProject.classes
         {
             Open();
 
-            sql = "INSERT INTO [dbo].[users] ([first_name] ,[last_name], [middle_name] ,[birthday] ,[group_id] ,[email] ,[login] ,[password] ,[role])" +
+            if (groupId == -1)
+            {
+                sql = "INSERT INTO [dbo].[users] ([first_name] ,[last_name], [middle_name] ,[birthday] ,[group_id] ,[email] ,[login] ,[password] ,[role])" +
+                "VALUES (@firstName, @lastName, @middleName, '10.10.2010', NULL, @email, @login, @password, @role)";
+
+            }
+            else
+            {
+                sql = "INSERT INTO [dbo].[users] ([first_name] ,[last_name], [middle_name] ,[birthday] ,[group_id] ,[email] ,[login] ,[password] ,[role])" +
                 "VALUES (@firstName, @lastName, @middleName, '10.10.2010', @groupId, @email, @login, @password, @role)";
+                cmd.Parameters.AddWithValue("@groupId", groupId);
+            }
+            
             cmd = new SqlCommand(sql, con);
             cmd.Parameters.AddWithValue("@firstName", firstName);
             cmd.Parameters.AddWithValue("@lastName", lastName);
             cmd.Parameters.AddWithValue("@middleName", middleName);
-            cmd.Parameters.AddWithValue("@groupId", groupId);
+            
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@login", login);
             cmd.Parameters.AddWithValue("@password", _password);

@@ -57,7 +57,7 @@ namespace School_Journal_App_VSProject.pages.AdminPanel
 
         private void AddUserBtnClick(object sender, RoutedEventArgs e)
         {
-            if (FirstnameTxtBx.Text.Length < 1 || LastnameTxtBx.Text.Length < 1 || GroupTxtBx.SelectedIndex == -1 || EmailTxtBx.Text.Length < 1 || LoginTxtBx.Text.Length < 1 || PasswordTxtBx.Text.Length < 1)
+            if (FirstnameTxtBx.Text.Length < 1 || LastnameTxtBx.Text.Length < 1 || (GroupTxtBx.SelectedIndex == -1 && role == 2) || EmailTxtBx.Text.Length < 1 || LoginTxtBx.Text.Length < 1 || PasswordTxtBx.Text.Length < 1)
             {
                 ResponseAddUser.Content = "Поля не могут быть пустыми";
                 ResponseAddUser.Foreground = Brushes.IndianRed;
@@ -65,7 +65,11 @@ namespace School_Journal_App_VSProject.pages.AdminPanel
             }
             else
             {
-                int group = groups[GroupTxtBx.SelectedIndex].Id;
+                int group;
+                if (role == 1 || role == 0)
+                {
+                    group = -1;
+                }else group = groups[GroupTxtBx.SelectedIndex].Id;
                 SQLController.controller.InsertUser(FirstnameTxtBx.Text, LastnameTxtBx.Text, MiddlenameTxtBx.Text, group, EmailTxtBx.Text, LoginTxtBx.Text, PasswordTxtBx.Text, role);
                 ResponseAddUser.Content = "Пользователь успешно добавлен";
                 ResponseAddUser.Foreground = Brushes.LightGreen;
